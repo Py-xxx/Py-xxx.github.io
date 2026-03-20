@@ -4,6 +4,27 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 // ============================================
+// CURSOR GLOW
+// ============================================
+const glow = document.createElement('div')
+glow.className = 'cursor-glow'
+document.body.appendChild(glow)
+gsap.set(glow, { xPercent: -50, yPercent: -50 })
+
+window.addEventListener('mousemove', e => {
+  gsap.to(glow, { x: e.clientX, y: e.clientY, duration: 0.6, ease: 'power2.out' })
+})
+
+// ============================================
+// SCROLL PROGRESS BAR
+// ============================================
+const progressBar = document.getElementById('progressBar')
+window.addEventListener('scroll', () => {
+  const progress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)
+  progressBar.style.transform = `scaleX(${progress})`
+})
+
+// ============================================
 // NAV — border on scroll + hamburger toggle
 // ============================================
 const nav = document.getElementById('nav')

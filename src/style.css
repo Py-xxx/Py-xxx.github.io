@@ -548,6 +548,91 @@ footer {
 }
 
 /* ============================================
+   SCROLL PROGRESS BAR
+   ============================================ */
+#progressBar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 200;
+  transition: transform 0.05s linear;
+}
+
+/* ============================================
+   GRAIN / NOISE TEXTURE
+   ============================================ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+}
+
+/* ============================================
+   CURSOR GLOW
+   ============================================ */
+.cursor-glow {
+  position: fixed;
+  pointer-events: none;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167,139,250,0.07) 0%, transparent 65%);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  will-change: transform;
+}
+
+/* ============================================
+   PULSE DOT (availability)
+   ============================================ */
+.availability-value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--green);
+}
+
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.pulse-dot::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0.3;
+  animation: pulse 2s ease-out infinite;
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1); opacity: 0.3; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Hide cursor glow on touch devices */
+@media (hover: none) {
+  .cursor-glow { display: none; }
+}
+
+/* ============================================
    HAMBURGER BUTTON (hidden on desktop)
    ============================================ */
 .nav-toggle {

@@ -1,0 +1,153 @@
+/* ============================================
+   CASE STUDY PAGE
+   ============================================ */
+.casestudy-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 8rem 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* HEADER */
+.cs-back {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+  transition: color var(--transition);
+}
+.cs-back:hover { color: var(--accent); }
+
+.cs-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cs-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cs-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1.05;
+}
+
+.cs-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  max-width: 560px;
+  line-height: 1.8;
+}
+
+.cs-links { margin-top: 0.5rem; }
+
+.cs-divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* BLOCKS */
+.cs-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.cs-block-heading {
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.cs-body {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.9;
+  max-width: 640px;
+}
+
+/* FEATURES GRID */
+.cs-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.cs-feature {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color var(--transition);
+}
+
+.cs-feature:hover { border-color: var(--accent-dim); }
+
+.cs-feature-label {
+  font-size: 0.75rem;
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.cs-feature-desc {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* DECISIONS */
+.cs-decision {
+  background: var(--bg-surface);
+  border-left: 2px solid var(--accent-dim);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.cs-decision-title {
+  font-size: 0.82rem;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.cs-decision .cs-body { margin: 0; }
+
+/* BOTTOM NAV */
+.cs-nav {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .casestudy-page { padding: 6rem 1.25rem 3rem; gap: 3rem; }
+  .cs-features { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .casestudy-page { padding: 5.5rem 1rem 2.5rem; }
+  .cs-nav { flex-direction: column; }
+  .cs-nav .btn-ghost,
+  .cs-nav .btn-primary { text-align: center; }
+}

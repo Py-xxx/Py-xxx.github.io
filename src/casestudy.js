@@ -3,28 +3,23 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ============================================
-// CURSOR GLOW
-// ============================================
+// Cursor glow
 const glow = document.createElement('div')
 glow.className = 'cursor-glow'
 document.body.appendChild(glow)
 gsap.set(glow, { xPercent: -50, yPercent: -50 })
-
 window.addEventListener('mousemove', e => {
   gsap.to(glow, { x: e.clientX, y: e.clientY, duration: 0.6, ease: 'power2.out' })
 })
 
-// ============================================
-// SCROLL PROGRESS BAR
-// ============================================
+// Scroll progress bar
 const progressBar = document.getElementById('progressBar')
 window.addEventListener('scroll', () => {
   const progress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)
   progressBar.style.transform = `scaleX(${progress})`
 })
 
-// Nav — border on scroll + hamburger toggle
+// Nav
 const nav = document.getElementById('nav')
 const navToggle = document.getElementById('navToggle')
 const navLinks = document.getElementById('navLinks')
@@ -45,49 +40,28 @@ navLinks.querySelectorAll('a').forEach(link => {
   })
 })
 
-// Page header entrance
+// Page entrance
 const tl = gsap.timeline({ defaults: { ease: 'power2.out' } })
+tl.from('.cs-back',     { opacity: 0, x: -12, duration: 0.4 })
+  .from('.cs-meta',     { opacity: 0, y: 10,  duration: 0.4 }, '-=0.1')
+  .from('.cs-title',    { opacity: 0, y: 16,  duration: 0.5 }, '-=0.2')
+  .from('.cs-subtitle', { opacity: 0, y: 12,  duration: 0.4 }, '-=0.2')
+  .from('.cs-links',    { opacity: 0, y: 10,  duration: 0.4 }, '-=0.2')
 
-tl.from('.about-page-header .terminal-line', { opacity: 0, x: -12, duration: 0.5 })
-  .from('.about-page-title',  { opacity: 0, y: 16, duration: 0.6 }, '-=0.2')
-  .from('.about-page-sub',    { opacity: 0, y: 12, duration: 0.5 }, '-=0.3')
-
-// Scroll reveal for each block
-document.querySelectorAll('.about-block').forEach(block => {
+// Scroll reveals
+document.querySelectorAll('.cs-block').forEach(block => {
   gsap.from(block, {
-    opacity: 0,
-    y: 24,
-    duration: 0.6,
-    ease: 'power2.out',
+    opacity: 0, y: 24, duration: 0.6, ease: 'power2.out',
     scrollTrigger: { trigger: block, start: 'top 88%' }
   })
 })
 
-// Stagger identity grid items
-gsap.from('.identity-grid > div', {
-  opacity: 0,
-  y: 12,
-  duration: 0.4,
-  stagger: 0.08,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '.identity-grid', start: 'top 88%' }
+gsap.from('.cs-features .cs-feature', {
+  opacity: 0, y: 20, duration: 0.45, stagger: 0.08, ease: 'power2.out',
+  scrollTrigger: { trigger: '.cs-features', start: 'top 88%' }
 })
 
-// Stagger traits
-gsap.from('.trait', {
-  opacity: 0,
-  x: -16,
-  duration: 0.4,
-  stagger: 0.1,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '.traits-list', start: 'top 88%' }
-})
-
-// CTA
-gsap.from('.about-cta', {
-  opacity: 0,
-  y: 20,
-  duration: 0.6,
-  ease: 'power2.out',
-  scrollTrigger: { trigger: '.about-cta', start: 'top 90%' }
+gsap.from('.cs-decision', {
+  opacity: 0, x: -16, duration: 0.45, stagger: 0.1, ease: 'power2.out',
+  scrollTrigger: { trigger: '.cs-decision', start: 'top 88%' }
 })

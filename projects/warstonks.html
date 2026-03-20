@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WarStonks — Case Study</title>
+    <meta name="description" content="How I built a full Warframe market analysis desktop app from scratch using Rust, TypeScript, React, and Tauri." />
+    <meta property="og:title" content="WarStonks — Case Study by Py" />
+    <meta property="og:description" content="A desktop trading companion for Warframe. Live analysis, scanners, alerts, and strategy tools." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/casestudy.css" />
+  </head>
+  <body>
+
+    <div id="progressBar"></div>
+
+    <!-- NAV -->
+    <nav id="nav">
+      <a href="/" class="nav-name">py<span class="accent">.</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#projects" style="color: var(--accent)">projects</a></li>
+        <li><a href="/#writing">writing</a></li>
+        <li><a href="/about.html">about</a></li>
+        <li><a href="/#contact" class="nav-cta">hire me</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <main class="casestudy-page">
+
+      <!-- HEADER -->
+      <div class="cs-header">
+        <a href="/#projects" class="cs-back">← back to projects</a>
+        <div class="cs-meta">
+          <span class="project-tag">Rust · TypeScript · React · Tauri · SQLite</span>
+          <span class="project-status status-live">live</span>
+        </div>
+        <h1 class="cs-title">WarStonks</h1>
+        <p class="cs-subtitle">
+          A desktop trading companion for Warframe — live market analysis,
+          price alerts, arbitrage scanning, and portfolio tracking. All in one app.
+        </p>
+        <div class="cs-links">
+          <a href="https://github.com/Py-xxx/WarStonks" target="_blank" rel="noopener" class="btn-primary">view on github →</a>
+        </div>
+      </div>
+
+      <!-- DIVIDER -->
+      <div class="cs-divider"></div>
+
+      <!-- THE PROBLEM -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// the problem</h2>
+        <p class="cs-body">
+          Warframe has a complex player-driven economy. Hundreds of tradeable items, fluctuating
+          prices, arbitrage windows that open and close in minutes. The existing tools were either
+          too basic, too fragmented, or required jumping between five browser tabs to get a
+          complete picture.
+        </p>
+        <p class="cs-body">
+          I wanted one app. Something that lived on my desktop, pulled live data, and let me
+          make informed decisions without the friction of piecing things together manually.
+          Nothing existing did exactly that — so I built it.
+        </p>
+      </div>
+
+      <!-- THE SOLUTION -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// what it does</h2>
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-label">Market Analysis</span>
+            <p class="cs-feature-desc">
+              Search any item and get live price history, volume, buy/sell spread, and liquidity
+              data pulled directly from warframe.market and warframestat.us.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Opportunity Scanner</span>
+            <p class="cs-feature-desc">
+              Automated scanner that identifies arbitrage opportunities across the market — items
+              where the spread between buy and sell orders creates a profitable window.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Watchlist & Alerts</span>
+            <p class="cs-feature-desc">
+              Track specific items with price targets. Get alerted when an item hits your buy or
+              sell threshold so you don't have to monitor manually.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Relic Planning</span>
+            <p class="cs-feature-desc">
+              Input your current inventory and the app calculates which relics are worth farming
+              based on current market value of their drops.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Trade Tracker</span>
+            <p class="cs-feature-desc">
+              Local trade history stored in SQLite. Track performance over time — what you bought,
+              what you sold, actual profit/loss per trade.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECH DECISIONS -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// technical decisions</h2>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Why Tauri instead of Electron?</p>
+          <p class="cs-body">
+            Electron bundles an entire Chromium instance — it's heavy and slow to start.
+            Tauri uses the OS's native webview and a Rust backend, which means a fraction of
+            the binary size and noticeably faster startup. For a trading app where you want
+            data fast, that matters.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Why Rust for the backend?</p>
+          <p class="cs-body">
+            The scanner runs continuously, processing market data across hundreds of items.
+            Rust handles that work without burning CPU or memory — and Tauri's backend is
+            Rust natively, so it was the obvious fit. It also forced me to learn Rust properly,
+            which was half the point.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Why SQLite for storage?</p>
+          <p class="cs-body">
+            No server, no cloud dependency. Trade history, watchlists, and cached market data
+            all live locally in a single file. Fast, portable, and the user owns their data.
+          </p>
+        </div>
+      </div>
+
+      <!-- WHAT I LEARNED -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// what I learned</h2>
+        <p class="cs-body">
+          This project was the first time I worked seriously with Rust. The borrow checker
+          is unforgiving — but after fighting it long enough, you start writing code differently.
+          More intentional. Less sloppy about ownership and lifetimes. That thinking has
+          carried over into everything I've written since.
+        </p>
+        <p class="cs-body">
+          Building a real-time data app also forced me to think carefully about performance —
+          when to cache, when to fetch fresh, how to keep the UI responsive while background
+          processes are running. Problems that don't show up in tutorial projects.
+        </p>
+      </div>
+
+      <!-- NAV -->
+      <div class="cs-nav">
+        <a href="/#projects" class="btn-ghost">← all projects</a>
+        <a href="https://github.com/Py-xxx/WarStonks" target="_blank" rel="noopener" class="btn-primary">view source →</a>
+      </div>
+
+    </main>
+
+    <footer>
+      <span>py<span class="accent">.</span> · built with intention</span>
+      <span>2026</span>
+    </footer>
+
+    <script type="module" src="/src/casestudy.js"></script>
+  </body>
+</html>

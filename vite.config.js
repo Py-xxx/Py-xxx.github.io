@@ -7,8 +7,9 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        about: resolve(__dirname, 'about.html'),
+        main:       resolve(__dirname, 'index.html'),
+        about:      resolve(__dirname, 'about.html'),
+        warstonks:  resolve(__dirname, 'projects/warstonks.html'),
       },
     },
   },
