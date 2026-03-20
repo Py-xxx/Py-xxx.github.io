@@ -398,25 +398,6 @@ section {
   margin-bottom: 3rem;
 }
 
-.books-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 2rem;
-}
-
-.book-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.book-cover {
-  aspect-ratio: 2/3;
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-
 .book-cover--placeholder {
   background: var(--bg-raised);
   display: flex;
@@ -447,6 +428,74 @@ section {
 
 .writing-link { color: var(--accent); }
 .writing-link:hover { color: var(--text); }
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.book-card {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.book-cover {
+  flex-shrink: 0;
+  width: 90px;
+  aspect-ratio: 2/3;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.book-cover--haileys {
+  background: linear-gradient(160deg, #1a1228 0%, #0d0d1a 60%, #1a1020 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.75rem;
+  color: rgba(167,139,250,0.5);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.book-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.book-wip {
+  font-size: 0.62rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(167,139,250,0.08);
+  color: var(--accent);
+  border: 1px solid rgba(167,139,250,0.2);
+}
+
+.book-blurb {
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--text-dim);
+  line-height: 1.75;
+  margin-top: 0.25rem;
+}
 
 /* ============================================
    ABOUT
