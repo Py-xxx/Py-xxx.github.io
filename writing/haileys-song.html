@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hailey's Song — py</title>
+    <meta name="description" content="Hailey's Song — a lyrical fantasy novel by py. A girl with no name. A place where sound is forbidden. Someone coming." />
+    <meta property="og:title" content="Hailey's Song by py" />
+    <meta property="og:description" content="She has no name. No memory. Only the walking, and the silence that wants her to stop." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/book.css" />
+  </head>
+  <body>
+
+    <div id="progressBar"></div>
+
+    <!-- NAV -->
+    <nav id="nav">
+      <a href="/" class="nav-name">py<span class="accent">.</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#projects">projects</a></li>
+        <li><a href="/#writing" style="color: var(--accent)">writing</a></li>
+        <li><a href="/about.html">about</a></li>
+        <li><a href="/#contact" class="nav-cta">hire me</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <main class="book-page">
+
+      <!-- HEADER -->
+      <div class="book-header">
+        <a href="/#writing" class="book-back">← back to writing</a>
+        <p class="terminal-line book-terminal-line"><span class="prompt">❯</span><span class="command"> cat book.md</span></p>
+
+        <div class="book-hero">
+          <div class="book-hero-cover">
+            <img src="/cover-haileys-song.png" alt="Hailey's Song cover" />
+          </div>
+          <div class="book-hero-info">
+            <div class="book-tags">
+              <span>Fiction</span>
+              <span>Novel</span>
+              <span>Lyrical Fantasy</span>
+              <span class="book-wip">in progress</span>
+            </div>
+            <h1 class="book-page-title">Hailey's Song</h1>
+            <p class="book-author">by py</p>
+            <p class="book-logline">
+              She has no name. No memory. Only the walking, and the silence that wants her to stop.
+              When a name finally surfaces from somewhere deeper than memory, she speaks it aloud
+              in a place where sound is forbidden. The silence hesitates.
+              And somewhere, impossibly, someone is coming.
+            </p>
+            <div class="book-buy-area">
+              <p class="book-unavailable">// not yet published — check back later</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIVIDER -->
+      <div class="book-divider"></div>
+
+      <!-- OVERVIEW -->
+      <div class="book-block">
+        <h2 class="book-block-heading">~ the story</h2>
+        <p class="book-body">
+          In the Unplace — a gray, sourceless world where time folds rather than passes and sound
+          is punished by a silence that thinks — a girl has been walking for as long as she can
+          remember. She has no name. No history. Only the act of moving, and the stubborn,
+          wordless refusal to stop.
+        </p>
+        <p class="book-body">
+          When she names herself Hailey, she does the impossible: she draws a line in a place
+          that forbids them. The silence hesitates. And somewhere beyond the architecture of
+          undoing, she hears a footstep that does not apologize for the noise it makes.
+        </p>
+        <p class="book-body">
+          The man who walks in is broken in his own way — grief-hollowed, carrying a loss that
+          has dissolved everything around it. What follows is a story about found family,
+          the violence of being named back into existence, and what it costs to pull someone
+          out of a place that does not want to let them go.
+        </p>
+      </div>
+
+      <!-- THEMES -->
+      <div class="book-block">
+        <h2 class="book-block-heading">~ themes</h2>
+        <div class="book-themes">
+          <div class="book-theme">
+            <span class="book-theme-title">Identity & naming</span>
+            <p class="book-theme-desc">A name as an act of defiance. The self as something that can be eroded — and reclaimed.</p>
+          </div>
+          <div class="book-theme">
+            <span class="book-theme-title">Grief & survival</span>
+            <p class="book-theme-desc">Two people dissolved by different losses, finding that survival is something you do together.</p>
+          </div>
+          <div class="book-theme">
+            <span class="book-theme-title">Creation as resistance</span>
+            <p class="book-theme-desc">Making things — carving, singing, naming — as the only weapon against a world that wants you quiet.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATUS -->
+      <div class="book-block">
+        <h2 class="book-block-heading">~ status</h2>
+        <p class="book-body">
+          Currently in active revision. The story is being expanded from its first draft
+          into a full novel — deeper world-building, richer characters, and the gothic
+          structural framework it deserves. Publication details to follow.
+        </p>
+      </div>
+
+      <!-- NAV -->
+      <div class="book-nav">
+        <a href="/#writing" class="btn-ghost">← back to writing</a>
+      </div>
+
+    </main>
+
+    <footer>
+      <span>py<span class="accent">.</span> · built with intention</span>
+      <span>2026</span>
+    </footer>
+
+    <script type="module" src="/src/book.js"></script>
+  </body>
+</html>

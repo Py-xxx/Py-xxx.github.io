@@ -11,6 +11,10 @@
 }
 
 /* HEADER */
+.cs-terminal-line {
+  margin-top: 1rem;
+}
+
 .cs-back {
   display: inline-block;
   font-size: 0.75rem;
