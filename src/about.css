@@ -1,0 +1,202 @@
+/* ============================================
+   ABOUT PAGE
+   ============================================ */
+.about-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 8rem 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+/* PAGE HEADER */
+.about-page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-page-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.about-page-sub {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+/* BLOCKS */
+.about-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.about-block:last-of-type {
+  border-bottom: none;
+}
+
+.block-heading {
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.block-body {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.9;
+  max-width: 600px;
+}
+
+.block-body em {
+  color: var(--text);
+  font-style: normal;
+}
+
+/* IDENTITY GRID */
+.identity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 2rem;
+}
+
+.detail-label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* SKILLS */
+.skills-table {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skills-group-label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+/* WRITING BLOCK — mode shift */
+.about-block--writing {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  margin: 0 -0.5rem;
+}
+
+.writing-heading {
+  font-family: var(--font-serif) !important;
+  font-size: 1.1rem !important;
+  font-style: italic;
+  letter-spacing: 0.02em !important;
+}
+
+.writing-body {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.9;
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+/* TRAITS */
+.traits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.trait {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.trait-icon {
+  font-size: 0.9rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.trait-title {
+  font-size: 0.88rem;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.trait-desc {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* CTA */
+.about-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 1rem;
+}
+
+.about-cta-text {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+
+  .about-page { padding: 6rem 1.25rem 3rem; gap: 3rem; }
+
+  /* Identity grid stays 2-col — items are small enough */
+  .identity-grid { gap: 1.25rem 1.5rem; }
+
+  /* Writing block — remove negative margin that causes scroll */
+  .about-block--writing { margin: 0; }
+
+  /* CTA buttons stack full width */
+  .about-cta .btn-primary,
+  .about-cta .btn-ghost {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .about-page { padding: 5.5rem 1rem 2.5rem; }
+
+  .about-page-title { letter-spacing: -0.02em; }
+
+  /* Identity drops to single column on very small screens */
+  .identity-grid { grid-template-columns: 1fr; gap: 1rem; }
+
+  .about-block--writing { padding: 1.5rem; }
+}

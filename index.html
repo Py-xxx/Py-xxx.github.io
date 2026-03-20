@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Py — Engineer & Author</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+
+    <!-- NAV -->
+    <nav id="nav">
+      <span class="nav-name">py<span class="accent">.</span></span>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#projects">projects</a></li>
+        <li><a href="#writing">writing</a></li>
+        <li><a href="/about.html">about</a></li>
+        <li><a href="#contact" class="nav-cta">hire me</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-terminal">
+        <div class="terminal-bar">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">nathan@portfolio ~ </span>
+        </div>
+        <div class="terminal-body">
+          <p class="terminal-line">
+            <span class="prompt">❯</span>
+            <span class="command"> whoami</span>
+          </p>
+          <div class="hero-output" id="heroOutput">
+            <h1 class="hero-name" id="heroName"></h1>
+            <p class="hero-tag" id="heroTag"></p>
+            <p class="hero-sub" id="heroSub"></p>
+          </div>
+          <div class="hero-ctas" id="heroCtas">
+            <a href="#projects" class="btn-primary">view projects</a>
+            <a href="#writing" class="btn-ghost">read my writing</a>
+          </div>
+          <p class="terminal-line blink-line">
+            <span class="prompt">❯</span>
+            <span class="cursor">█</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS (dev mode) -->
+    <section id="projects">
+      <div class="section-header">
+        <span class="section-label">## projects</span>
+        <span class="section-line"></span>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-meta">
+            <span class="project-tag">Rust · TypeScript · React · Tauri</span>
+            <span class="project-status status-live">live</span>
+          </div>
+          <h3 class="project-title">WarStonks</h3>
+          <p class="project-desc">
+            A desktop trading companion for Warframe. Live market analysis, price alerts,
+            arbitrage scanning, relic planning, and portfolio tracking — all in one app.
+            Built because nothing existing did exactly what I needed.
+          </p>
+          <div class="project-footer">
+            <a href="https://github.com/Py-xxx/WarStonks" target="_blank" rel="noopener" class="link-arrow">github →</a>
+          </div>
+        </div>
+
+        <!-- Placeholder for future projects -->
+        <div class="project-card project-card--ghost">
+          <p class="ghost-text">// next project loading...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WRITING (notebook mode) -->
+    <section id="writing" class="writing-section">
+      <div class="writing-inner">
+        <div class="section-header">
+          <span class="section-label writing-label">~ writing</span>
+          <span class="section-line"></span>
+        </div>
+        <p class="writing-intro">
+          The other half. Fantasy, fiction, poetry — worlds built the same way software is:
+          one deliberate piece at a time.
+        </p>
+        <div class="books-grid">
+          <div class="book-card">
+            <div class="book-cover book-cover--placeholder">
+              <span>Book Title</span>
+            </div>
+            <h4 class="book-title">Your Book Title</h4>
+            <p class="book-genre">Fantasy · Novel</p>
+            <a href="#" class="link-arrow writing-link">read more →</a>
+          </div>
+          <div class="book-card">
+            <div class="book-cover book-cover--placeholder">
+              <span>Book Title</span>
+            </div>
+            <h4 class="book-title">Your Book Title</h4>
+            <p class="book-genre">Poetry · Collection</p>
+            <a href="#" class="link-arrow writing-link">read more →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT (teaser only — full details at /about) -->
+    <section id="about">
+      <div class="section-header">
+        <span class="section-label">## about</span>
+        <span class="section-line"></span>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Engineer who does whatever the problem requires — if I don't know how, I learn.
+            I like small teams, real problems, and work that actually ships.
+          </p>
+          <p>
+            Outside of code I write things — fantasy, fiction, poetry. The skills overlap more than
+            you'd think: both are about building something coherent out of nothing.
+          </p>
+          <a href="/about.html" class="btn-ghost" style="margin-top:0.5rem; display:inline-block;">full profile →</a>
+        </div>
+        <div class="about-stack">
+          <p class="stack-label">// things I work with</p>
+          <div class="stack-tags">
+            <span>Python</span><span>TypeScript</span><span>JavaScript</span><span>Rust</span><span>SQL</span>
+            <span>React</span><span>Tauri</span><span>SQLite</span><span>APIs</span><span>Git</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-inner">
+        <p class="terminal-line"><span class="prompt">❯</span><span class="command"> available --for-hire</span></p>
+        <h2 class="contact-heading">Let's build something.</h2>
+        <p class="contact-sub">
+          Open to contract work, part-time roles, and small-team projects.
+          If you have a problem worth solving, reach out.
+        </p>
+        <a href="mailto:you@email.com" class="btn-primary btn-large">get in touch →</a>
+      </div>
+    </section>
+
+    <footer>
+      <span>py<span class="accent">.</span> · built with intention</span>
+      <span>2026</span>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
