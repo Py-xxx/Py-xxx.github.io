@@ -782,6 +782,9 @@ body::after {
     grid-template-columns: 1fr;
   }
 
+  /* Writing / books */
+  .books-grid { grid-template-columns: 1fr; }
+
   /* About section (index) */
   .about-grid {
     grid-template-columns: 1fr;
@@ -813,10 +816,18 @@ body::after {
   /* Hero name stays large via clamp, just ensure padding */
   #hero { padding: 4.5rem 0.75rem 2.5rem; }
 
-  /* Books stack to 2-column grid on small phones */
+  /* Books: single column, card stacks vertically */
   .books-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+
+  .book-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .book-cover {
+    width: 110px;
   }
 
   /* Stack section header on very narrow */
