@@ -448,6 +448,8 @@ section {
   border-radius: 4px;
   overflow: hidden;
   border: 1px solid var(--border);
+  position: relative;
+  z-index: 9999;
 }
 
 .book-cover--haileys {
