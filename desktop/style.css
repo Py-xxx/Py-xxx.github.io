@@ -288,14 +288,11 @@ body::before {
 .transition-terminal {
   position: fixed;
   z-index: 1000;
-  background: #0d0d18;
-  border: 1px solid rgba(167, 139, 250, 0.25);
-  border-radius: 10px;
+  background: #111118;
+  border: 1px solid #2a2a38;
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow:
-    0 0 0 1px rgba(167, 139, 250, 0.06),
-    0 32px 80px rgba(0, 0, 0, 0.8),
-    0 0 60px rgba(167, 139, 250, 0.08);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(167,139,250,0.05);
   pointer-events: none;
   display: flex;
   flex-direction: column;
@@ -304,10 +301,8 @@ body::before {
 .tt-bar {
   display: flex;
   align-items: center;
-  gap: 0;
-  padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
   flex-shrink: 0;
   position: relative;
 }
@@ -332,28 +327,27 @@ body::before {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.68rem;
-  color: var(--text-dim);
-  letter-spacing: 0.07em;
-  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: #6b6880;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .tt-body {
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 20px 22px;
-  font-family: var(--mono);
-  font-size: 0.82rem;
-  color: var(--text);
+  padding: 2rem 2rem 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  color: #e2e0ff;
 }
 
 .tt-prompt {
-  color: var(--accent-dim);
+  color: #a78bfa;
 }
 
 .tt-cursor {
-  color: var(--accent);
+  color: #a78bfa;
   font-size: 1rem;
   line-height: 1;
 }

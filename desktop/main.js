@@ -66,26 +66,22 @@ function launchPortfolio(iconEl) {
   `
   document.body.appendChild(term)
 
-  const targetW = Math.min(700, window.innerWidth  * 0.9)
-  const targetH = Math.min(440, window.innerHeight * 0.65)
+  const targetW = Math.min(700, window.innerWidth * 0.9)
+  const targetH = Math.min(390, window.innerHeight * 0.65)
+
+  // Full-screen overlay matching portfolio background — fades in last for seamless handoff
+  const overlay = document.createElement('div')
+  overlay.style.cssText = 'position:fixed;inset:0;background:#0a0a0f;opacity:0;z-index:999;pointer-events:none;'
+  document.body.appendChild(overlay)
 
   // Start at icon position, collapsed
   gsap.set(term, { left: cx, top: cy, xPercent: -50, yPercent: -50, width: 2, height: 2, opacity: 0 })
 
-  gsap.timeline({
-    onComplete: () => {
-      gsap.to('body', {
-        opacity: 0,
-        duration: 0.3,
-        ease: 'power2.in',
-        onComplete: () => { window.location.href = '/portfolio' },
-      })
-    },
-  })
+  gsap.timeline({ onComplete: () => { window.location.href = '/portfolio' } })
     .to('.icon-grid, .taskbar', { opacity: 0, duration: 0.35, ease: 'power2.in' }, 0)
     .to(term, { opacity: 1, width: targetW, height: targetH, left: '50%', top: '50%', duration: 0.55, ease: 'power3.out' }, 0.05)
     .to('.tt-cursor', { opacity: 0, duration: 0.13, repeat: 5, yoyo: true, ease: 'none' }, 0.55)
-    .to({}, { duration: 0.1 })
+    .to(overlay, { opacity: 1, duration: 0.35, ease: 'power2.in' }, 0.85)
 }
 
 // ── Icons ──────────────────────────────────────────────────
@@ -142,6 +138,15 @@ document.getElementById('desktop').addEventListener('click', e => {
   if (!e.target.closest('.icon') && !e.target.closest('.links-card')) {
     icons.forEach(i => i.classList.remove('selected'))
     closeLinks()
+  }
+})
+
+// ── Restore from bfcache (browser back button) ────────────
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    document.querySelector('.transition-terminal')?.remove()
+    gsap.set('body', { opacity: 1 })
+    gsap.set('.icon-grid, .taskbar', { opacity: 1 })
   }
 })
 
