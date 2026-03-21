@@ -303,8 +303,8 @@ body::before {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
+  border-bottom: 1px solid #2a2a38;
   flex-shrink: 0;
-  position: relative;
 }
 
 .tt-dots {
@@ -324,31 +324,38 @@ body::before {
 .tt-dots span:nth-child(3) { background: #28c840; }
 
 .tt-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-left: 0.5rem;
   font-size: 0.75rem;
   color: #6b6880;
   font-family: 'JetBrains Mono', monospace;
 }
 
 .tt-body {
-  flex: 1;
-  display: flex;
-  align-items: center;
   padding: 2rem 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.9rem;
   color: #e2e0ff;
+}
+
+.tt-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .tt-prompt {
   color: #a78bfa;
 }
 
+.tt-cmd {
+  color: #6b6880;
+}
+
 .tt-cursor {
   color: #a78bfa;
-  font-size: 1rem;
   line-height: 1;
 }
 

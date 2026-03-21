@@ -57,11 +57,12 @@ function launchPortfolio(iconEl) {
   term.className = 'transition-terminal'
   term.innerHTML = `
     <div class="tt-bar">
-      <div class="tt-dots"><span></span><span></span><span></span></div>
-      <span class="tt-title">portfolio — py@portfolio</span>
+      <span class="tt-dots"><span></span><span></span><span></span></span>
+      <span class="tt-title">py@portfolio ~ </span>
     </div>
     <div class="tt-body">
-      <span class="tt-prompt">py@portfolio ~ $&nbsp;</span><span class="tt-cursor">▋</span>
+      <p class="tt-line"><span class="tt-prompt">❯</span><span class="tt-cmd"> whoami</span></p>
+      <p class="tt-line"><span class="tt-prompt">❯</span><span class="tt-cursor">█</span></p>
     </div>
   `
   document.body.appendChild(term)
