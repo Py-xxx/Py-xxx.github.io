@@ -15,12 +15,24 @@
 </head>
 <body>
 
+  <!-- ── Boot screen ── -->
+  <div id="bootScreen">
+    <div class="boot-wrap">
+      <div class="boot-logo">py<span>.</span>os</div>
+      <div class="boot-lines" id="bootLines"></div>
+    </div>
+  </div>
+
+  <!-- ── Animated wallpaper ── -->
+  <canvas id="wallpaper"></canvas>
+
+  <!-- ── Desktop ── -->
   <div class="desktop" id="desktop">
 
     <!-- Desktop icons -->
-    <div class="icon-grid">
+    <div class="icon-grid" id="iconGrid">
 
-      <div class="icon" data-href="/portfolio" tabindex="0" role="button" aria-label="Open portfolio">
+      <div class="icon" data-action="portfolio" tabindex="0" role="button" aria-label="Open portfolio">
         <div class="icon-graphic">
           <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/>
@@ -35,7 +47,7 @@
         <span class="icon-label">portfolio</span>
       </div>
 
-      <div class="icon" data-href="https://github.com/Py-xxx" data-external="true" tabindex="0" role="button" aria-label="Open GitHub">
+      <div class="icon" data-action="github" tabindex="0" role="button" aria-label="Open GitHub">
         <div class="icon-graphic">
           <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M16 3C8.82 3 3 8.82 3 16c0 5.74 3.72 10.61 8.88 12.33.65.12.89-.28.89-.62v-2.18c-3.61.78-4.37-1.74-4.37-1.74-.59-1.5-1.44-1.9-1.44-1.9-1.18-.8.09-.79.09-.79 1.3.09 1.99 1.34 1.99 1.34 1.16 1.98 3.04 1.41 3.78 1.08.12-.84.45-1.41.82-1.74-2.88-.33-5.91-1.44-5.91-6.4 0-1.41.5-2.57 1.33-3.47-.13-.33-.58-1.64.13-3.42 0 0 1.08-.35 3.54 1.32A12.3 12.3 0 0 1 16 8.75c1.1.01 2.2.15 3.23.43 2.46-1.67 3.54-1.32 3.54-1.32.71 1.78.26 3.09.13 3.42.83.9 1.33 2.06 1.33 3.47 0 4.97-3.03 6.07-5.92 6.39.47.4.88 1.2.88 2.41v3.57c0 .34.23.74.89.62C25.29 26.61 29 21.74 29 16c0-7.18-5.82-13-13-13z" fill="currentColor"/>
@@ -44,7 +56,7 @@
         <span class="icon-label">github</span>
       </div>
 
-      <div class="icon" data-href="mailto:berrnathan@gmail.com" tabindex="0" role="button" aria-label="Send email">
+      <div class="icon" data-action="contact" tabindex="0" role="button" aria-label="Open contact">
         <div class="icon-graphic">
           <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="3" y="7" width="26" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/>
@@ -66,17 +78,87 @@
 
     </div>
 
-    <!-- Links card (mini window) -->
-    <div class="links-card" id="linksCard" role="dialog" aria-label="Links" aria-hidden="true">
-      <div class="links-card-titlebar">
-        <div class="titlebar-dots">
-          <span class="dot dot-close" id="linksClose"></span>
-          <span class="dot dot-min"></span>
-          <span class="dot dot-max"></span>
+    <!-- ── GitHub window ── -->
+    <div class="os-window" id="githubWindow">
+      <div class="win-titlebar">
+        <div class="win-dots">
+          <span class="win-dot dot-close" data-closes="githubWindow"></span>
+          <span class="win-dot dot-min"></span>
+          <span class="win-dot dot-max"></span>
         </div>
-        <span class="titlebar-title">links.txt</span>
+        <span class="win-title">github — py</span>
       </div>
-      <div class="links-card-body">
+      <div class="win-body">
+        <div class="gh-profile">
+          <div class="gh-avatar">py</div>
+          <div class="gh-info">
+            <div class="gh-name">py</div>
+            <div class="gh-username">@Py-xxx</div>
+          </div>
+        </div>
+        <div class="gh-stats">
+          <div class="gh-stat"><span class="gh-stat-val">1</span><span class="gh-stat-lbl">repo</span></div>
+          <div class="gh-stat"><span class="gh-stat-val">—</span><span class="gh-stat-lbl">following</span></div>
+          <div class="gh-stat"><span class="gh-stat-val">—</span><span class="gh-stat-lbl">followers</span></div>
+        </div>
+        <div class="gh-repo">
+          <div class="gh-repo-name">WarStonks</div>
+          <div class="gh-repo-desc">Market analysis &amp; trade tracker for Warframe. Desktop app built with Tauri + React.</div>
+          <div class="gh-repo-tags">
+            <span class="gh-tag">TypeScript</span>
+            <span class="gh-tag">Rust</span>
+            <span class="gh-tag">Tauri</span>
+          </div>
+        </div>
+        <div class="win-actions">
+          <a href="https://github.com/Py-xxx" target="_blank" rel="noopener" class="win-btn win-btn-primary">View on GitHub →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Contact window ── -->
+    <div class="os-window" id="contactWindow">
+      <div class="win-titlebar">
+        <div class="win-dots">
+          <span class="win-dot dot-close" data-closes="contactWindow"></span>
+          <span class="win-dot dot-min"></span>
+          <span class="win-dot dot-max"></span>
+        </div>
+        <span class="win-title">contact — new message</span>
+      </div>
+      <div class="win-body">
+        <div class="compose-form">
+          <div class="compose-field">
+            <label class="compose-label">to</label>
+            <input class="compose-input" type="text" value="berrnathan@gmail.com" readonly />
+          </div>
+          <div class="compose-field">
+            <label class="compose-label">subject</label>
+            <input class="compose-input" id="contactSubject" type="text" placeholder="what's on your mind?" />
+          </div>
+          <div class="compose-field">
+            <label class="compose-label">message</label>
+            <textarea class="compose-textarea" id="contactMessage" placeholder="write something..."></textarea>
+          </div>
+          <div class="win-actions">
+            <button class="win-btn win-btn-ghost" id="contactCancel">cancel</button>
+            <button class="win-btn win-btn-primary" id="contactSend">send ↗</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Links window ── -->
+    <div class="os-window" id="linksWindow">
+      <div class="win-titlebar">
+        <div class="win-dots">
+          <span class="win-dot dot-close" data-closes="linksWindow"></span>
+          <span class="win-dot dot-min"></span>
+          <span class="win-dot dot-max"></span>
+        </div>
+        <span class="win-title">links.txt</span>
+      </div>
+      <div class="win-body win-body-links">
         <a href="https://github.com/Py-xxx" target="_blank" rel="noopener" class="link-row">
           <span class="link-arrow">→</span>
           <span class="link-label">github.com/py</span>
@@ -92,10 +174,28 @@
       </div>
     </div>
 
-    <!-- Taskbar -->
-    <div class="taskbar">
+    <!-- ── Taskbar ── -->
+    <div class="taskbar" id="taskbar">
       <span class="taskbar-brand">py.</span>
       <div class="taskbar-right">
+        <div class="system-tray">
+          <span class="tray-icon" title="Connected">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+              <path d="M1.5 6.5a9 9 0 0 1 13 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M3.8 9a6 6 0 0 1 8.4 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M6.2 11.4a3 3 0 0 1 3.6 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              <circle cx="8" cy="13.8" r="1" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="tray-icon" id="trayBattery" title="Battery">
+            <svg width="20" height="11" viewBox="0 0 20 11" fill="none">
+              <rect x="0.5" y="0.5" width="17" height="10" rx="2" stroke="currentColor" stroke-width="1"/>
+              <path d="M18 3.5v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <rect id="batteryFill" x="2" y="2" width="13" height="7" rx="1" fill="currentColor" opacity="0.65"/>
+            </svg>
+          </span>
+          <span class="tray-sep"></span>
+        </div>
         <span class="taskbar-date" id="taskbarDate"></span>
         <span class="taskbar-time" id="taskbarTime"></span>
       </div>
