@@ -74,6 +74,8 @@ function typeText(el, text, speed = 45) {
   })
 }
 
+const scrollHint = document.getElementById('scrollHint')
+
 async function runHeroSequence() {
   // Small initial delay
   await new Promise(r => setTimeout(r, 400))
@@ -89,7 +91,17 @@ async function runHeroSequence() {
 
   // Fade in CTAs
   gsap.to(heroCtas, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' })
+
+  // Fade in scroll hint after CTAs appear
+  await new Promise(r => setTimeout(r, 600))
+  scrollHint?.classList.add('visible')
 }
+
+// Hide scroll hint as soon as the user scrolls
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) scrollHint?.classList.add('hidden')
+  else scrollHint?.classList.remove('hidden')
+}, { passive: true })
 
 runHeroSequence()
 
@@ -112,7 +124,7 @@ gsap.utils.toArray('.reveal').forEach(el => {
 // Stagger children of these containers on scroll
 const staggerTargets = [
   { selector: '.projects-grid',  children: '.project-card' },
-  { selector: '.books-grid',     children: '.book-card' },
+  { selector: '.shelf-books',    children: '.book-spine' },
   { selector: '.stack-tags',     children: 'span' },
 ]
 
@@ -163,6 +175,61 @@ if (writingIntro) {
     }
   })
 }
+
+// ============================================
+// BOOKSHELF — spine click → drawer
+// ============================================
+const spines     = document.querySelectorAll('.book-spine:not(.book-spine--empty)')
+const drawer     = document.getElementById('bookDrawer')
+const drawerClose = document.getElementById('drawerClose')
+const shelfHint  = document.getElementById('shelfHint')
+let activeSpine  = null
+
+function openDrawer(spine) {
+  // Deactivate any previously active spine
+  if (activeSpine && activeSpine !== spine) activeSpine.classList.remove('active')
+
+  spine.classList.add('active')
+  activeSpine = spine
+
+  // Hide the hint permanently once a user interacts
+  if (shelfHint) shelfHint.classList.add('hidden')
+
+  gsap.to(drawer, {
+    height: 'auto',
+    opacity: 1,
+    duration: 0.45,
+    ease: 'power3.out',
+  })
+}
+
+function closeDrawer() {
+  if (activeSpine) {
+    activeSpine.classList.remove('active')
+    activeSpine = null
+  }
+  gsap.to(drawer, {
+    height: 0,
+    opacity: 0,
+    duration: 0.3,
+    ease: 'power2.in',
+  })
+}
+
+spines.forEach(spine => {
+  spine.addEventListener('click', () => {
+    spine.classList.contains('active') ? closeDrawer() : openDrawer(spine)
+  })
+  // Keyboard support
+  spine.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      spine.classList.contains('active') ? closeDrawer() : openDrawer(spine)
+    }
+  })
+})
+
+drawerClose?.addEventListener('click', closeDrawer)
 
 // Contact heading
 const contactHeading = document.querySelector('.contact-heading')

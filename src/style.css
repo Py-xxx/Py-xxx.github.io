@@ -100,10 +100,50 @@ a:hover { color: var(--text); }
    ============================================ */
 #hero {
   min-height: 100vh;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 6rem 2rem 4rem;
+}
+
+/* ============================================
+   SCROLL HINT
+   ============================================ */
+.scroll-hint {
+  position: absolute;
+  bottom: 2.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.scroll-hint.visible  { opacity: 1; }
+.scroll-hint.hidden   { opacity: 0; }
+
+.scroll-chevron {
+  width: 10px;
+  height: 10px;
+  border-right: 1.5px solid var(--accent);
+  border-bottom: 1.5px solid var(--accent);
+  transform: rotate(45deg);
+  animation: chevronDrift 1.6s ease-in-out infinite;
+}
+
+.scroll-chevron:nth-child(2) {
+  animation-delay: 0.18s;
+  opacity: 0.5;
+}
+
+@keyframes chevronDrift {
+  0%, 100% { transform: rotate(45deg) translate(0, 0);   opacity: 0.9; }
+  50%       { transform: rotate(45deg) translate(3px, 3px); opacity: 0.4; }
 }
 
 .hero-terminal {
@@ -398,87 +438,10 @@ section {
   margin-bottom: 3rem;
 }
 
-.book-cover--placeholder {
-  background: var(--bg-raised);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.85rem;
-  text-align: center;
-  padding: 1rem;
-}
-
-.book-title {
-  font-family: var(--font-serif);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: 0;
-}
-
-.book-genre {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .writing-link { color: var(--accent); }
 .writing-link:hover { color: var(--text); }
 
-.books-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 2rem;
-}
-
-.book-card {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
-
-.book-cover {
-  flex-shrink: 0;
-  width: 90px;
-  aspect-ratio: 2/3;
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  position: relative;
-  z-index: 9999;
-}
-
-.book-cover--haileys {
-  background: linear-gradient(160deg, #1a1228 0%, #0d0d1a 60%, #1a1020 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.75rem;
-  color: rgba(167,139,250,0.5);
-  text-align: center;
-  line-height: 1.4;
-}
-
-.book-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.book-title-row {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-}
-
+/* .book-wip badge — shared between bookshelf drawer and book detail pages */
 .book-wip {
   font-size: 0.62rem;
   padding: 0.15rem 0.45rem;
@@ -490,13 +453,291 @@ section {
   border: 1px solid rgba(167,139,250,0.2);
 }
 
-.book-blurb {
+/* ============================================
+   LIBRARY / BOOKSHELF
+   ============================================ */
+.library-room {
+  position: relative;
+  background: linear-gradient(to bottom, #0e0b17, #0a0a0f);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem 0;
+  overflow: hidden;
+}
+
+/* Ambient violet glow above the shelf */
+.shelf-ambient {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 140px;
+  background: radial-gradient(ellipse at top, rgba(167,139,250,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.bookshelf { position: relative; }
+
+.shelf-books {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  padding: 0 1.5rem;
+  min-height: 190px;
+}
+
+/* The wooden plank */
+.shelf-plank {
+  height: 14px;
+  margin: 0 -2rem;
+  background: linear-gradient(to bottom, #2e2010, #1c1208);
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.4);
+}
+
+/* Book spine */
+.book-spine {
+  position: relative;
+  width: 44px;
+  height: 164px;
+  border-radius: 3px 2px 2px 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  overflow: hidden;   /* clips the shimmer sweep */
+  box-shadow:
+    inset -5px 0 10px rgba(0,0,0,0.4),
+    inset 2px 0 4px rgba(255,255,255,0.04),
+    3px 0 8px rgba(0,0,0,0.3);
+  transition:
+    transform   0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow  0.35s ease;
+  outline: none;
+}
+
+/* Shimmer — diagonal light that sweeps across on hover */
+.book-spine:not(.book-spine--empty)::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -90%;
+  width: 55%;
+  height: 120%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255,255,255,0.08),
+    transparent
+  );
+  transform: skewX(-8deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.book-spine:not(.book-spine--empty):hover::after { left: 170%; }
+
+/* Lift + glow + elevated cast shadow */
+.book-spine:not(.book-spine--empty):hover {
+  transform: translateY(-14px);
+  box-shadow:
+    inset -5px 0 10px rgba(0,0,0,0.4),
+    inset 2px 0 4px rgba(255,255,255,0.07),
+    3px 0 8px rgba(0,0,0,0.3),
+    0 22px 28px rgba(0,0,0,0.55),
+    0 0  28px rgba(167,139,250,0.2),
+    0 0  55px rgba(167,139,250,0.07);
+}
+
+.book-spine:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.book-spine.active { transform: translateY(-16px); }
+
+/* Hailey's Song — deep lyrical violet */
+.book-spine[data-book="haileys-song"] {
+  background: linear-gradient(160deg, #3b2270 0%, #1e1148 55%, #2a1558 100%);
+  height: 170px;
+}
+
+/* A thin highlight on the left edge — simulates light hitting the spine */
+.book-spine[data-book="haileys-song"]::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, rgba(167,139,250,0.35), rgba(167,139,250,0.05));
+  border-radius: 3px 0 0 3px;
+}
+
+.spine-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
   font-family: var(--font-serif);
-  font-size: 0.92rem;
+  font-size: 0.75rem;
+  color: rgba(225, 215, 255, 0.85);
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  padding: 0 0.3rem;
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.book-spine:hover .spine-title {
+  color: rgba(245, 240, 255, 1);
+}
+
+.spine-author {
+  position: absolute;
+  bottom: 0.65rem;
+  left: 50%;
+  writing-mode: vertical-rl;
+  transform: translateX(-50%) rotate(180deg);
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  color: rgba(167,139,250,0.55);
+  letter-spacing: 0.15em;
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.book-spine:hover .spine-author {
+  color: rgba(167,139,250,0.9);
+}
+
+/* Empty placeholder spines */
+.book-spine--empty {
+  width: 36px;
+  height: 130px;
+  background: rgba(255,255,255,0.015);
+  border: 1px dashed rgba(255,255,255,0.06);
+  cursor: default;
+  box-shadow: none;
+}
+.book-spine--empty:hover { transform: none; }
+
+/* Hint text below shelf */
+.shelf-hint {
+  text-align: center;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  padding: 0.6rem 0 0.5rem;
+  transition: opacity 0.4s ease;
+}
+.shelf-hint.hidden { opacity: 0; pointer-events: none; }
+
+/* ---- BOOK DRAWER ---- */
+.book-drawer {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.drawer-content {
+  position: relative;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  padding: 2rem 2rem 2rem;
+  border-top: 1px solid var(--border);
+  background: var(--bg-surface);
+}
+
+.drawer-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--transition), color var(--transition);
+}
+.drawer-close:hover { border-color: var(--accent); color: var(--accent); }
+
+.drawer-cover {
+  flex-shrink: 0;
+  width: 100px;
+  aspect-ratio: 2/3;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  position: relative;
+  z-index: 9999;
+}
+.drawer-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.drawer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.drawer-tags {
+  font-size: 0.67rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.drawer-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.drawer-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.drawer-blurb {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
   font-style: italic;
   color: var(--text-dim);
-  line-height: 1.75;
+  line-height: 1.85;
+  max-width: 500px;
   margin-top: 0.25rem;
+}
+
+.drawer-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .library-room { padding: 2rem 1rem 0; }
+  .shelf-books  { padding: 0 0.5rem; gap: 4px; }
+  .shelf-plank  { margin: 0 -1rem; }
+  .drawer-content { flex-direction: column; gap: 1.25rem; padding: 1.5rem 1.25rem; }
+  .drawer-cover   { width: 80px; }
+  .drawer-title   { font-size: 1.25rem; }
+  .drawer-blurb   { font-size: 0.88rem; }
+  .drawer-close   { top: 0.75rem; right: 0.75rem; }
+}
+
+@media (max-width: 480px) {
+  .book-spine { width: 36px; }
+  .book-spine[data-book="haileys-song"] { height: 150px; }
+  .spine-title { font-size: 0.65rem; }
 }
 
 /* ============================================
@@ -782,8 +1023,8 @@ body::after {
     grid-template-columns: 1fr;
   }
 
-  /* Writing / books */
-  .books-grid { grid-template-columns: 1fr; }
+  /* Writing section */
+  .writing-intro { font-size: 1rem; }
 
   /* About section (index) */
   .about-grid {
@@ -815,20 +1056,6 @@ body::after {
 
   /* Hero name stays large via clamp, just ensure padding */
   #hero { padding: 4.5rem 0.75rem 2.5rem; }
-
-  /* Books: single column, card stacks vertically */
-  .books-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .book-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .book-cover {
-    width: 110px;
-  }
 
   /* Stack section header on very narrow */
   .section-header { gap: 0.75rem; }

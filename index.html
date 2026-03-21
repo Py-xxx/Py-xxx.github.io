@@ -8,11 +8,11 @@
     <meta property="og:title" content="Py — Engineer & Author" />
     <meta property="og:description" content="Full-stack engineer and published author. I build software and worlds. Sometimes they're the same thing." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://py-xxx.github.io" />
+    <meta property="og:url" content="https://pyth.co.za/portfolio" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Py — Engineer & Author" />
     <meta name="twitter:description" content="Full-stack engineer and published author. I build software and worlds. Sometimes they're the same thing." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
@@ -28,7 +28,7 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#projects">projects</a></li>
         <li><a href="#writing">writing</a></li>
-        <li><a href="/about.html">about</a></li>
+        <li><a href="/portfolio/about">about</a></li>
         <li><a href="#contact" class="nav-cta">hire me</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
@@ -65,6 +65,13 @@
           </p>
         </div>
       </div>
+
+      <!-- SCROLL HINT -->
+      <div class="scroll-hint" id="scrollHint">
+        <span class="scroll-chevron"></span>
+        <span class="scroll-chevron"></span>
+      </div>
+
     </section>
 
     <!-- PROJECTS (dev mode) -->
@@ -86,7 +93,7 @@
             Built because nothing existing did exactly what I needed.
           </p>
           <div class="project-footer">
-            <a href="/projects/warstonks.html" class="link-arrow">case study →</a>
+            <a href="/portfolio/projects/warstonks" class="link-arrow">case study →</a>
             <a href="https://github.com/Py-xxx/WarStonks" target="_blank" rel="noopener" class="link-arrow">github →</a>
           </div>
         </div>
@@ -109,25 +116,56 @@
           The other half. Fantasy, fiction, poetry — worlds built the same way software is:
           one deliberate piece at a time.
         </p>
-        <div class="books-grid">
-          <div class="book-card">
-            <div class="book-cover">
-              <img src="/cover-haileys-song.png" alt="Hailey's Song cover" style="width:100%; height:100%; object-fit:cover;" />
-            </div>
-            <div class="book-info">
-              <div class="book-title-row">
-                <h4 class="book-title">Hailey's Song</h4>
-                <span class="book-wip">in progress</span>
+        <!-- LIBRARY ROOM -->
+        <div class="library-room">
+          <div class="shelf-ambient"></div>
+
+          <div class="bookshelf">
+            <div class="shelf-books">
+
+              <!-- Hailey's Song -->
+              <div class="book-spine" data-book="haileys-song" tabindex="0" role="button" aria-label="Open Hailey's Song">
+                <span class="spine-title">Hailey's Song</span>
+                <span class="spine-author">py</span>
               </div>
-              <p class="book-genre">Fiction · Novel · Lyrical Fantasy</p>
-              <p class="book-blurb">
-                She has no name. No memory. Only the walking, and the silence that wants her to stop.
-                When a name finally surfaces from somewhere deeper than memory, she speaks it aloud
-                in a place where sound is forbidden. The silence hesitates.
-                And somewhere, impossibly, someone is coming.
-              </p>
+
+              <!-- Future slots -->
+              <div class="book-spine book-spine--empty" aria-hidden="true"></div>
+              <div class="book-spine book-spine--empty" aria-hidden="true"></div>
+              <div class="book-spine book-spine--empty" aria-hidden="true"></div>
+
+            </div>
+            <div class="shelf-plank"></div>
+          </div>
+
+          <p class="shelf-hint" id="shelfHint">↑ click a spine</p>
+
+          <!-- BOOK DETAIL DRAWER -->
+          <div class="book-drawer" id="bookDrawer">
+            <div class="drawer-content">
+              <button class="drawer-close" id="drawerClose" aria-label="Close">✕</button>
+              <div class="drawer-cover">
+                <img src="/portfolio/cover-haileys-song.png" alt="Hailey's Song cover" />
+              </div>
+              <div class="drawer-info">
+                <p class="drawer-tags">Fiction · Novel · Lyrical Fantasy</p>
+                <div class="drawer-title-row">
+                  <h3 class="drawer-title">Hailey's Song</h3>
+                  <span class="book-wip">in progress</span>
+                </div>
+                <p class="drawer-blurb">
+                  She has no name. No memory. Only the walking, and the silence that wants her to stop.
+                  When a name finally surfaces from somewhere deeper than memory, she speaks it aloud
+                  in a place where sound is forbidden. The silence hesitates.
+                  And somewhere, impossibly, someone is coming.
+                </p>
+                <div class="drawer-links">
+                  <a href="/portfolio/writing/haileys-song" class="btn-ghost">read more →</a>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -148,7 +186,7 @@
             Outside of code I write things — fantasy, fiction, poetry. The skills overlap more than
             you'd think: both are about building something coherent out of nothing.
           </p>
-          <a href="/about.html" class="btn-ghost" style="margin-top:0.5rem; display:inline-block;">full profile →</a>
+          <a href="/portfolio/about" class="btn-ghost" style="margin-top:0.5rem; display:inline-block;">full profile →</a>
         </div>
         <div class="about-stack">
           <p class="stack-label">// things I work with</p>
