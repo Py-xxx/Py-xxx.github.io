@@ -284,6 +284,80 @@ body::before {
   letter-spacing: 0.05em;
 }
 
+/* ── Portfolio transition terminal ── */
+.transition-terminal {
+  position: fixed;
+  z-index: 1000;
+  background: #0d0d18;
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(167, 139, 250, 0.06),
+    0 32px 80px rgba(0, 0, 0, 0.8),
+    0 0 60px rgba(167, 139, 250, 0.08);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.tt-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.tt-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tt-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.tt-dots span:nth-child(1) { background: #ff5f57; }
+.tt-dots span:nth-child(2) { background: #febc2e; }
+.tt-dots span:nth-child(3) { background: #28c840; }
+
+.tt-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.07em;
+  font-family: var(--mono);
+}
+
+.tt-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 20px 22px;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text);
+}
+
+.tt-prompt {
+  color: var(--accent-dim);
+}
+
+.tt-cursor {
+  color: var(--accent);
+  font-size: 1rem;
+  line-height: 1;
+}
+
 /* ── Mobile ── */
 @media (max-width: 640px) {
   .cursor-glow { display: none; }

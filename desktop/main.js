@@ -47,19 +47,59 @@ linksClose?.addEventListener('click', e => {
   closeLinks()
 })
 
+// ── Portfolio transition ───────────────────────────────────
+function launchPortfolio(iconEl) {
+  const rect = iconEl.getBoundingClientRect()
+  const cx = rect.left + rect.width  / 2
+  const cy = rect.top  + rect.height / 2
+
+  const term = document.createElement('div')
+  term.className = 'transition-terminal'
+  term.innerHTML = `
+    <div class="tt-bar">
+      <div class="tt-dots"><span></span><span></span><span></span></div>
+      <span class="tt-title">portfolio — py@portfolio</span>
+    </div>
+    <div class="tt-body">
+      <span class="tt-prompt">py@portfolio ~ $&nbsp;</span><span class="tt-cursor">▋</span>
+    </div>
+  `
+  document.body.appendChild(term)
+
+  const targetW = Math.min(700, window.innerWidth  * 0.9)
+  const targetH = Math.min(440, window.innerHeight * 0.65)
+
+  // Start at icon position, collapsed
+  gsap.set(term, { left: cx, top: cy, xPercent: -50, yPercent: -50, width: 2, height: 2, opacity: 0 })
+
+  gsap.timeline({
+    onComplete: () => {
+      gsap.to('body', {
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power2.in',
+        onComplete: () => { window.location.href = '/portfolio' },
+      })
+    },
+  })
+    .to('.icon-grid, .taskbar', { opacity: 0, duration: 0.35, ease: 'power2.in' }, 0)
+    .to(term, { opacity: 1, width: targetW, height: targetH, left: '50%', top: '50%', duration: 0.55, ease: 'power3.out' }, 0.05)
+    .to('.tt-cursor', { opacity: 0, duration: 0.13, repeat: 5, yoyo: true, ease: 'none' }, 0.55)
+    .to({}, { duration: 0.1 })
+}
+
 // ── Icons ──────────────────────────────────────────────────
 const icons  = document.querySelectorAll('.icon')
 
 icons.forEach(icon => {
   const activate = () => {
-    // Deselect all
     icons.forEach(i => i.classList.remove('selected'))
     icon.classList.add('selected')
 
-    const graphic = icon.querySelector('.icon-graphic')
-    const href    = icon.dataset.href
-    const action  = icon.dataset.action
-    const external= icon.dataset.external === 'true'
+    const graphic  = icon.querySelector('.icon-graphic')
+    const href     = icon.dataset.href
+    const action   = icon.dataset.action
+    const external = icon.dataset.external === 'true'
 
     // Bounce animation
     gsap.timeline()
@@ -68,6 +108,12 @@ icons.forEach(icon => {
 
     if (action === 'links') {
       linksCard.classList.contains('open') ? closeLinks() : openLinks()
+      return
+    }
+
+    // Portfolio gets the terminal transition
+    if (href === '/portfolio') {
+      launchPortfolio(icon)
       return
     }
 
