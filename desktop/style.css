@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:           #08080d;
+  --surface:      rgba(167, 139, 250, 0.05);
+  --surface-hover:rgba(167, 139, 250, 0.09);
+  --border:       rgba(167, 139, 250, 0.13);
+  --border-hover: rgba(167, 139, 250, 0.28);
+  --accent:       #a78bfa;
+  --accent-dim:   rgba(167, 139, 250, 0.55);
+  --text:         #e8e8f0;
+  --text-dim:     #5a5a72;
+  --text-mid:     #9090a8;
+  --mono:         'JetBrains Mono', 'Fira Code', monospace;
+  --taskbar-h:    42px;
+  --radius:       8px;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Noise overlay ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+}
+
+/* ── Vignette ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.45) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Cursor glow ── */
+.cursor-glow {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.045) 0%, transparent 65%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+/* ── Desktop ── */
+.desktop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+/* ── Icon grid ── */
+.icon-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 28px 24px;
+  overflow: hidden;
+}
+
+/* ── Single icon ── */
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  width: 76px;
+  padding: 14px 8px 10px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+  outline: none;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.icon:focus-visible {
+  border-color: var(--accent-dim);
+}
+
+.icon.selected {
+  background: rgba(167, 139, 250, 0.07);
+  border-color: rgba(167, 139, 250, 0.25);
+}
+
+.icon-graphic {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-dim);
+  transition: color 0.18s ease, filter 0.18s ease;
+}
+
+.icon-graphic svg {
+  width: 100%;
+  height: 100%;
+}
+
+.icon:hover .icon-graphic,
+.icon.selected .icon-graphic {
+  color: var(--accent);
+  filter: drop-shadow(0 0 7px rgba(167, 139, 250, 0.5));
+}
+
+.icon-label {
+  font-size: 0.62rem;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.18s ease;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+.icon:hover .icon-label,
+.icon.selected .icon-label {
+  color: var(--text-mid);
+}
+
+/* ── Links card ── */
+.links-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.94);
+  width: 300px;
+  background: #0d0d16;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  z-index: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(167, 139, 250, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.links-card.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* macOS-style titlebar */
+.links-card-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 11px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.titlebar-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.dot-close  { background: #ff5f57; }
+.dot-min    { background: #febc2e; }
+.dot-max    { background: #28c840; }
+
+.dot:hover  { filter: brightness(1.2); }
+
+.titlebar-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.07em;
+  pointer-events: none;
+}
+
+.links-card-body {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.link-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--text-mid);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.link-row:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.link-arrow {
+  color: var(--accent-dim);
+  font-size: 0.68rem;
+  flex-shrink: 0;
+}
+
+/* ── Taskbar ── */
+.taskbar {
+  height: var(--taskbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  background: rgba(255, 255, 255, 0.025);
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.taskbar-brand {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.taskbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.taskbar-date,
+.taskbar-time {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .cursor-glow { display: none; }
+
+  .icon-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 20px 16px;
+    gap: 8px;
+  }
+
+  .icon {
+    width: 80px;
+  }
+
+  .links-card {
+    width: calc(100vw - 32px);
+    max-width: 320px;
+  }
+}

@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "dev:desktop": "vite --config vite.config.desktop.js",
+    "build:portfolio": "vite build",
+    "build:desktop": "vite build --config vite.config.desktop.js",
+    "build": "npm run build:portfolio && npm run build:desktop",
     "preview": "vite preview"
   },
   "dependencies": {

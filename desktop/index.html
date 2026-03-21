@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>py.</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0a0f'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='%23a78bfa' font-family='monospace' font-size='14' font-weight='bold'>py</text></svg>" />
+  <meta name="description" content="py. — engineer & author" />
+  <meta property="og:title" content="py." />
+  <meta property="og:description" content="I build software and worlds. Sometimes they're the same thing." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pyth.co.za" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <div class="desktop" id="desktop">
+
+    <!-- Desktop icons -->
+    <div class="icon-grid">
+
+      <div class="icon" data-href="/portfolio" tabindex="0" role="button" aria-label="Open portfolio">
+        <div class="icon-graphic">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M2 11h28" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="6" cy="8.5" r="1" fill="currentColor"/>
+            <circle cx="10" cy="8.5" r="1" fill="currentColor"/>
+            <circle cx="14" cy="8.5" r="1" fill="currentColor"/>
+            <path d="M8 18l4 3.5-4 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 25h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="icon-label">portfolio</span>
+      </div>
+
+      <div class="icon" data-href="https://github.com/Py-xxx" data-external="true" tabindex="0" role="button" aria-label="Open GitHub">
+        <div class="icon-graphic">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 3C8.82 3 3 8.82 3 16c0 5.74 3.72 10.61 8.88 12.33.65.12.89-.28.89-.62v-2.18c-3.61.78-4.37-1.74-4.37-1.74-.59-1.5-1.44-1.9-1.44-1.9-1.18-.8.09-.79.09-.79 1.3.09 1.99 1.34 1.99 1.34 1.16 1.98 3.04 1.41 3.78 1.08.12-.84.45-1.41.82-1.74-2.88-.33-5.91-1.44-5.91-6.4 0-1.41.5-2.57 1.33-3.47-.13-.33-.58-1.64.13-3.42 0 0 1.08-.35 3.54 1.32A12.3 12.3 0 0 1 16 8.75c1.1.01 2.2.15 3.23.43 2.46-1.67 3.54-1.32 3.54-1.32.71 1.78.26 3.09.13 3.42.83.9 1.33 2.06 1.33 3.47 0 4.97-3.03 6.07-5.92 6.39.47.4.88 1.2.88 2.41v3.57c0 .34.23.74.89.62C25.29 26.61 29 21.74 29 16c0-7.18-5.82-13-13-13z" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="icon-label">github</span>
+      </div>
+
+      <div class="icon" data-href="mailto:berrnathan@gmail.com" tabindex="0" role="button" aria-label="Send email">
+        <div class="icon-graphic">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="7" width="26" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3 10l13 9 13-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="icon-label">contact</span>
+      </div>
+
+      <div class="icon" data-action="links" tabindex="0" role="button" aria-label="Open links">
+        <div class="icon-graphic">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 17a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19 15a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="icon-label">links</span>
+      </div>
+
+    </div>
+
+    <!-- Links card (mini window) -->
+    <div class="links-card" id="linksCard" role="dialog" aria-label="Links" aria-hidden="true">
+      <div class="links-card-titlebar">
+        <div class="titlebar-dots">
+          <span class="dot dot-close" id="linksClose"></span>
+          <span class="dot dot-min"></span>
+          <span class="dot dot-max"></span>
+        </div>
+        <span class="titlebar-title">links.txt</span>
+      </div>
+      <div class="links-card-body">
+        <a href="https://github.com/Py-xxx" target="_blank" rel="noopener" class="link-row">
+          <span class="link-arrow">→</span>
+          <span class="link-label">github.com/py</span>
+        </a>
+        <a href="mailto:berrnathan@gmail.com" class="link-row">
+          <span class="link-arrow">→</span>
+          <span class="link-label">berrnathan@gmail.com</span>
+        </a>
+        <a href="/portfolio#writing" class="link-row">
+          <span class="link-arrow">→</span>
+          <span class="link-label">my books</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+      <span class="taskbar-brand">py.</span>
+      <div class="taskbar-right">
+        <span class="taskbar-date" id="taskbarDate"></span>
+        <span class="taskbar-time" id="taskbarTime"></span>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

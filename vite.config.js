@@ -3,6 +3,9 @@ import { resolve } from 'path'
 
 export default defineConfig({
   base: '/portfolio/',
+  server: {
+    port: 5173,
+  },
   build: {
     outDir: 'dist/portfolio',
     rollupOptions: {
