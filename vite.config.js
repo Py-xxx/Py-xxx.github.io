@@ -4,7 +4,7 @@ import { resolve } from 'path'
 export default defineConfig({
   base: '/portfolio/',
   build: {
-    outDir: 'dist',
+    outDir: 'dist/portfolio',
     rollupOptions: {
       input: {
         main:          resolve(__dirname, 'index.html'),
