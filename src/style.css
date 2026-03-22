@@ -223,11 +223,13 @@ a:hover { color: var(--text); }
   min-height: 2.4em;
 }
 
-.hero-ctas {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-  opacity: 0;
+.hero-status-line {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  padding-left: 1.4rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.25rem;
+  min-height: 1.4em;
 }
 
 .blink-line { margin-top: 0.25rem; }
@@ -780,6 +782,61 @@ section {
   color: var(--text-dim);
   letter-spacing: 0.05em;
 }
+
+/* ============================================
+   CURRENTLY
+   ============================================ */
+#currently {
+  padding: var(--section-pad) var(--section-x);
+}
+
+.currently-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.current-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.current-item:hover {
+  border-color: rgba(167, 139, 250, 0.18);
+  background: rgba(167, 139, 250, 0.03);
+}
+
+.current-label {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.current-value {
+  font-size: 0.82rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.currently-link {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--accent-dim);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.15s ease;
+}
+.currently-link:hover { color: var(--accent); }
 
 /* ============================================
    CONTACT

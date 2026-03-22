@@ -4,15 +4,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Py — Engineer & Author</title>
-    <meta name="description" content="Full-stack engineer and published author. I build software and worlds. Sometimes they're the same thing." />
-    <meta property="og:title" content="Py — Engineer & Author" />
-    <meta property="og:description" content="Full-stack engineer and published author. I build software and worlds. Sometimes they're the same thing." />
+    <title>Py — Engineer</title>
+    <meta name="description" content="Full-stack engineer. I build things. If I don't know how, I learn." />
+    <meta property="og:title" content="Py — Engineer" />
+    <meta property="og:description" content="Full-stack engineer available for contract work and small-team projects." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pyth.co.za/portfolio" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Py — Engineer & Author" />
-    <meta name="twitter:description" content="Full-stack engineer and published author. I build software and worlds. Sometimes they're the same thing." />
+    <meta name="twitter:title" content="Py — Engineer" />
+    <meta name="twitter:description" content="Full-stack engineer. I build things. If I don't know how, I learn." />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,7 +28,7 @@
       <a href="/" class="nav-name">py<span class="accent">.</span></a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#projects">projects</a></li>
-        <li><a href="#writing">writing</a></li>
+        <li><a href="#currently">currently</a></li>
         <li><a href="/portfolio/about">about</a></li>
         <li><a href="#contact" class="nav-cta">hire me</a></li>
       </ul>
@@ -56,10 +56,11 @@
             <p class="hero-tag" id="heroTag"></p>
             <p class="hero-sub" id="heroSub"></p>
           </div>
-          <div class="hero-ctas" id="heroCtas">
-            <a href="#projects" class="btn-primary">view projects</a>
-            <a href="#writing" class="btn-ghost">read my writing</a>
-          </div>
+          <p class="terminal-line" id="statusCmd" style="opacity:0">
+            <span class="prompt">❯</span>
+            <span class="command" id="statusCmdText"></span>
+          </p>
+          <p class="hero-status-line" id="heroStatusLine" style="opacity:0"></p>
           <p class="terminal-line blink-line">
             <span class="prompt">❯</span>
             <span class="cursor">█</span>
@@ -75,7 +76,7 @@
 
     </section>
 
-    <!-- PROJECTS (dev mode) -->
+    <!-- PROJECTS -->
     <section id="projects">
       <div class="section-header">
         <span class="section-label">## projects</span>
@@ -99,23 +100,50 @@
           </div>
         </div>
 
-        <!-- Placeholder for future projects -->
         <div class="project-card project-card--ghost">
           <p class="ghost-text">// next project loading...</p>
         </div>
       </div>
     </section>
 
+    <!-- CURRENTLY -->
+    <section id="currently">
+      <div class="section-header">
+        <span class="section-label">// currently</span>
+        <span class="section-line"></span>
+      </div>
+      <div class="currently-grid">
+        <div class="current-item reveal">
+          <span class="current-label">status</span>
+          <span class="current-value"><span class="pulse-dot"></span>available for work</span>
+        </div>
+        <div class="current-item reveal">
+          <span class="current-label">studying</span>
+          <span class="current-value">Computer Engineering — NWU</span>
+        </div>
+        <div class="current-item reveal">
+          <span class="current-label">building</span>
+          <span class="current-value">WarStonks v2</span>
+        </div>
+        <div class="current-item reveal">
+          <span class="current-label">location</span>
+          <span class="current-value">Potchefstroom, South Africa</span>
+        </div>
+      </div>
+      <a href="/portfolio/about" class="currently-link">full profile →</a>
+    </section>
+
     <!-- WRITING (notebook mode) -->
     <section id="writing" class="writing-section">
       <div class="writing-inner">
         <div class="section-header">
-          <span class="section-label writing-label">~ writing</span>
+          <span class="section-label writing-label">// other_work</span>
           <span class="section-line"></span>
         </div>
         <p class="writing-intro">
-          The other half. Fantasy, fiction, poetry — worlds built the same way software is:
-          one deliberate piece at a time.
+          Not everything I build is software. I write fiction, lyrical fantasy, and poetry —
+          same instinct, different medium. Occasionally useful if you need a writer for
+          a game or creative project.
         </p>
         <!-- LIBRARY ROOM -->
         <div class="library-room">
@@ -167,34 +195,6 @@
             </div>
           </div>
 
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT (teaser only — full details at /about) -->
-    <section id="about">
-      <div class="section-header">
-        <span class="section-label">## about</span>
-        <span class="section-line"></span>
-      </div>
-      <div class="about-grid">
-        <div class="about-text">
-          <p>
-            Engineer who does whatever the problem requires — if I don't know how, I learn.
-            I like small teams, real problems, and work that actually ships.
-          </p>
-          <p>
-            Outside of code I write things — fantasy, fiction, poetry. The skills overlap more than
-            you'd think: both are about building something coherent out of nothing.
-          </p>
-          <a href="/portfolio/about" class="btn-ghost" style="margin-top:0.5rem; display:inline-block;">full profile →</a>
-        </div>
-        <div class="about-stack">
-          <p class="stack-label">// things I work with</p>
-          <div class="stack-tags">
-            <span>Python</span><span>TypeScript</span><span>JavaScript</span><span>Rust</span><span>SQL</span>
-            <span>React</span><span>Tauri</span><span>SQLite</span><span>APIs</span><span>Git</span>
-          </div>
         </div>
       </div>
     </section>
