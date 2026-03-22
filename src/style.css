@@ -828,15 +828,9 @@ section {
   gap: 7px;
 }
 
-.currently-link {
-  display: inline-block;
-  font-size: 0.75rem;
-  color: var(--accent-dim);
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  transition: color 0.15s ease;
+.currently-cta {
+  margin-top: 0.5rem;
 }
-.currently-link:hover { color: var(--accent); }
 
 /* ============================================
    CONTACT

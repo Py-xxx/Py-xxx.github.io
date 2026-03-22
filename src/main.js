@@ -60,7 +60,7 @@ const scrollHint     = document.getElementById('scrollHint')
 
 const NAME   = 'Py.'
 const TAG    = 'full-stack engineer.'
-const SUB    = '(+ published author — yes, really.)'
+const SUB    = 'who also builds worlds.'
 const STATUS = 'available for work  ·  engineering student  ·  potchefstroom, za'
 
 function typeText(el, text, speed = 45) {
