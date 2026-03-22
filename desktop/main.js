@@ -160,13 +160,15 @@ document.querySelectorAll('.os-window').forEach(win => {
 })
 
 // ── Draggable windows ──────────────────────────────────────
-Draggable.create('.os-window', {
-  trigger: '.win-titlebar',
-  bounds:  document.getElementById('desktop'),
-  edgeResistance: 0.65,
-  cursor: 'grab',
-  activeCursor: 'grabbing',
-  onPress() { bringToFront(this.target) },
+document.querySelectorAll('.os-window').forEach(win => {
+  Draggable.create(win, {
+    trigger: win.querySelector('.win-titlebar'),
+    bounds:  document.getElementById('desktop'),
+    edgeResistance: 0.65,
+    cursor: 'grab',
+    activeCursor: 'grabbing',
+    onPress() { bringToFront(this.target) },
+  })
 })
 
 // ── Contact send ───────────────────────────────────────────
@@ -220,11 +222,17 @@ function launchPortfolio(iconEl) {
 // ── Icon click handler ─────────────────────────────────────
 const iconEls = [...document.querySelectorAll('.icon')]
 
+function toggleWindow(id) {
+  const win = $(id)
+  if (!win) return
+  win.classList.contains('open') ? closeWindow(win) : openWindow(win)
+}
+
 const iconActions = {
-  portfolio: icon  => launchPortfolio(icon),
-  github:    ()    => openWindow($('githubWindow')),
-  contact:   ()    => openWindow($('contactWindow')),
-  links:     ()    => openWindow($('linksWindow')),
+  portfolio: icon => launchPortfolio(icon),
+  github:    ()   => toggleWindow('githubWindow'),
+  contact:   ()   => toggleWindow('contactWindow'),
+  links:     ()   => toggleWindow('linksWindow'),
 }
 
 iconEls.forEach(icon => {
