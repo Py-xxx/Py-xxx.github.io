@@ -141,6 +141,119 @@
   border-top: 1px solid var(--border);
 }
 
+/* SNAPSHOT GRID */
+.cs-snapshot {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.cs-snapshot-item {
+  padding: 1rem 1.25rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cs-snapshot-item:nth-child(even) { border-right: none; }
+.cs-snapshot-item:nth-last-child(-n+2) { border-bottom: none; }
+
+.cs-snapshot-label {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cs-snapshot-value {
+  font-size: 0.78rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* NUMBERED PROBLEMS */
+.cs-problems {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.cs-problem {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1rem 1.25rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition);
+}
+
+.cs-problem:hover { border-color: var(--accent-dim); }
+
+.cs-problem-num {
+  font-size: 0.7rem;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.cs-problem-content { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.cs-problem-title {
+  font-size: 0.8rem;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.cs-problem-desc {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* GOAL LOOP */
+.cs-loop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.cs-loop-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-mid);
+}
+
+.cs-loop-step span {
+  background: rgba(167,139,250,0.08);
+  border: 1px solid rgba(167,139,250,0.15);
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  color: var(--accent-dim);
+  letter-spacing: 0.04em;
+}
+
+.cs-loop-step::after {
+  content: '→';
+  color: var(--text-dim);
+  font-size: 0.7rem;
+}
+
+.cs-loop-step:last-child::after { display: none; }
+
 /* ============================================
    RESPONSIVE
    ============================================ */

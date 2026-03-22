@@ -5,9 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WarStonks — Case Study</title>
-    <meta name="description" content="How I built a full Warframe market analysis desktop app from scratch using Rust, TypeScript, React, and Tauri." />
-    <meta property="og:title" content="WarStonks — Case Study by Py" />
-    <meta property="og:description" content="A desktop trading companion for Warframe. Live analysis, scanners, alerts, and strategy tools." />
+    <meta name="description" content="How I designed and built a full Warframe market intelligence desktop app — live analysis, scanners, planning, and portfolio tracking." />
+    <meta property="og:title" content="WarStonks — Case Study by py" />
+    <meta property="og:description" content="A desktop trading companion for Warframe. Built with Tauri, Rust, React, TypeScript, and SQLite." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
@@ -47,121 +47,363 @@
         </div>
         <h1 class="cs-title">WarStonks</h1>
         <p class="cs-subtitle">
-          A desktop trading companion for Warframe — live market analysis,
-          price alerts, arbitrage scanning, and portfolio tracking. All in one app.
+          A local-first desktop trading companion for Warframe — built to take a fragmented,
+          high-friction workflow and turn it into one cohesive, decision-ready tool.
         </p>
         <div class="cs-links">
           <a href="https://github.com/Py-xxx/WarStonks" target="_blank" rel="noopener" class="btn-primary">view on github →</a>
         </div>
       </div>
 
-      <!-- DIVIDER -->
+      <!-- SNAPSHOT -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// project snapshot</h2>
+        <div class="cs-snapshot">
+          <div class="cs-snapshot-item">
+            <span class="cs-snapshot-label">Role</span>
+            <span class="cs-snapshot-value">Product design · Frontend · Backend · UX</span>
+          </div>
+          <div class="cs-snapshot-item">
+            <span class="cs-snapshot-label">Stack</span>
+            <span class="cs-snapshot-value">Tauri 2 · React 18 · TypeScript · Rust · SQLite</span>
+          </div>
+          <div class="cs-snapshot-item">
+            <span class="cs-snapshot-label">Integrations</span>
+            <span class="cs-snapshot-value">warframe.market · warframestat.us · Alecaframe</span>
+          </div>
+          <div class="cs-snapshot-item">
+            <span class="cs-snapshot-label">Release</span>
+            <span class="cs-snapshot-value">Official release line from v3.0.4</span>
+          </div>
+        </div>
+      </div>
+
       <div class="cs-divider"></div>
 
       <!-- THE PROBLEM -->
       <div class="cs-block">
         <h2 class="cs-block-heading">// the problem</h2>
         <p class="cs-body">
-          Warframe has a complex player-driven economy. Hundreds of tradeable items, fluctuating
-          prices, arbitrage windows that open and close in minutes. The existing tools were either
-          too basic, too fragmented, or required jumping between five browser tabs to get a
-          complete picture.
+          Warframe trading has a surprisingly high operational overhead if you want to do it well.
+          A serious player might need to check live listings, evaluate price history, manage buy and
+          sell orders, plan relic runs, estimate set values, and track whether any of it is actually
+          profitable — often all in the same session.
         </p>
         <p class="cs-body">
-          I wanted one app. Something that lived on my desktop, pulled live data, and let me
-          make informed decisions without the friction of piecing things together manually.
-          Nothing existing did exactly that — so I built it.
+          Most of that work is split between browser tabs, spreadsheets, screenshots, memory, and rough intuition.
+          That creates three specific problems:
+        </p>
+        <div class="cs-problems">
+          <div class="cs-problem">
+            <span class="cs-problem-num">01</span>
+            <div class="cs-problem-content">
+              <span class="cs-problem-title">Decision latency</span>
+              <p class="cs-problem-desc">Good opportunities are easy to miss when users have to gather information manually across multiple tools before they can act.</p>
+            </div>
+          </div>
+          <div class="cs-problem">
+            <span class="cs-problem-num">02</span>
+            <div class="cs-problem-content">
+              <span class="cs-problem-title">Lack of context</span>
+              <p class="cs-problem-desc">Raw prices alone don't explain market posture, liquidity, trend strength, or whether a listing is actually competitive. Data without interpretation is noise.</p>
+            </div>
+          </div>
+          <div class="cs-problem">
+            <span class="cs-problem-num">03</span>
+            <div class="cs-problem-content">
+              <span class="cs-problem-title">Workflow fragmentation</span>
+              <p class="cs-problem-desc">Trading, farming, and set planning are closely related decisions — but most tools treat them as separate problems with no connection between them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THE GOAL -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// the goal</h2>
+        <p class="cs-body">
+          I wanted to design and build a single application that could support the full decision loop
+          — not a passive statistics viewer, but something that actively helps users make better
+          decisions, faster.
+        </p>
+        <div class="cs-loop">
+          <div class="cs-loop-step"><span>monitor</span></div>
+          <div class="cs-loop-step"><span>identify</span></div>
+          <div class="cs-loop-step"><span>act</span></div>
+          <div class="cs-loop-step"><span>manage</span></div>
+          <div class="cs-loop-step"><span>evaluate</span></div>
+        </div>
+        <p class="cs-body">
+          The product needed to feel practical rather than theoretical. Every feature had to answer
+          a question a real player actually asks — not just expose the data.
         </p>
       </div>
 
-      <!-- THE SOLUTION -->
+      <div class="cs-divider"></div>
+
+      <!-- WHAT I BUILT -->
       <div class="cs-block">
-        <h2 class="cs-block-heading">// what it does</h2>
+        <h2 class="cs-block-heading">// what I built</h2>
+        <p class="cs-body">
+          Instead of organizing the app around raw API responses, I organized it around
+          user intent. Each section answers a specific set of questions.
+        </p>
         <div class="cs-features">
           <div class="cs-feature">
-            <span class="cs-feature-label">Market Analysis</span>
+            <span class="cs-feature-label">Home Dashboard</span>
             <p class="cs-feature-desc">
-              Search any item and get live price history, volume, buy/sell spread, and liquidity
-              data pulled directly from warframe.market and warframestat.us.
+              The operational centre — global item search, quick market inspection,
+              watchlist state, and action prompts. One place to check what matters right now
+              without navigating across the whole app.
             </p>
           </div>
           <div class="cs-feature">
-            <span class="cs-feature-label">Opportunity Scanner</span>
+            <span class="cs-feature-label">Market Analysis & Analytics</span>
             <p class="cs-feature-desc">
-              Automated scanner that identifies arbitrage opportunities across the market — items
-              where the spread between buy and sell orders creates a profitable window.
+              Deep-dive view for a single item. Split into Quick View for fast orderbook reads,
+              Analysis for entry/exit price, margin, and liquidity, and Analytics for historical
+              structure, trend quality, and execution context.
             </p>
           </div>
           <div class="cs-feature">
             <span class="cs-feature-label">Watchlist & Alerts</span>
             <p class="cs-feature-desc">
-              Track specific items with price targets. Get alerted when an item hits your buy or
-              sell threshold so you don't have to monitor manually.
+              Target-price tracking with alerts when live listings match user-defined conditions.
+              Turns market monitoring from a repetitive manual process into an event-driven one.
             </p>
           </div>
           <div class="cs-feature">
-            <span class="cs-feature-label">Relic Planning</span>
+            <span class="cs-feature-label">Scanners</span>
             <p class="cs-feature-desc">
-              Input your current inventory and the app calculates which relics are worth farming
-              based on current market value of their drops.
+              Scanner-driven opportunity discovery. The Arbitrage Scanner surfaces set-vs-component
+              opportunities. The Relic ROI Scanner ranks relic value and reward quality.
+              Both summarize large datasets into concise, ranked, actionable results.
             </p>
           </div>
           <div class="cs-feature">
-            <span class="cs-feature-label">Trade Tracker</span>
+            <span class="cs-feature-label">Set Completion Planner</span>
             <p class="cs-feature-desc">
-              Local trade history stored in SQLite. Track performance over time — what you bought,
-              what you sold, actual profit/loss per trade.
+              Tracks owned prime components and calculates investment, value, expected profit,
+              and margin per set. Uses relic inventory data to identify missing pieces more
+              intelligently. Includes screenshot-assisted import with explicit confirmation steps.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Trade Management</span>
+            <p class="cs-feature-desc">
+              Live sell and buy order management with editing, removal, and account controls.
+              The Trades Health workflow explains whether a listing is competitive, how much
+              queue is ahead of it, and whether to hold, reprice, or wait.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Portfolio & P&L</span>
+            <p class="cs-feature-desc">
+              Local portfolio layer for reviewing whether a trading strategy is working over time.
+              Trade logs, realized profit, estimated inventory value, and full P&L summaries —
+              designed to evaluate quality, not just activity.
             </p>
           </div>
         </div>
       </div>
 
-      <!-- TECH DECISIONS -->
+      <div class="cs-divider"></div>
+
+      <!-- UX APPROACH -->
       <div class="cs-block">
-        <h2 class="cs-block-heading">// technical decisions</h2>
-
-        <div class="cs-decision">
-          <p class="cs-decision-title">Why Tauri instead of Electron?</p>
-          <p class="cs-body">
-            Electron bundles an entire Chromium instance — it's heavy and slow to start.
-            Tauri uses the OS's native webview and a Rust backend, which means a fraction of
-            the binary size and noticeably faster startup. For a trading app where you want
-            data fast, that matters.
-          </p>
-        </div>
-
-        <div class="cs-decision">
-          <p class="cs-decision-title">Why Rust for the backend?</p>
-          <p class="cs-body">
-            The scanner runs continuously, processing market data across hundreds of items.
-            Rust handles that work without burning CPU or memory — and Tauri's backend is
-            Rust natively, so it was the obvious fit. It also forced me to learn Rust properly,
-            which was half the point.
-          </p>
-        </div>
-
-        <div class="cs-decision">
-          <p class="cs-decision-title">Why SQLite for storage?</p>
-          <p class="cs-body">
-            No server, no cloud dependency. Trade history, watchlists, and cached market data
-            all live locally in a single file. Fast, portable, and the user owns their data.
-          </p>
-        </div>
-      </div>
-
-      <!-- WHAT I LEARNED -->
-      <div class="cs-block">
-        <h2 class="cs-block-heading">// what I learned</h2>
+        <h2 class="cs-block-heading">// product & UX approach</h2>
         <p class="cs-body">
-          This project was the first time I worked seriously with Rust. The borrow checker
-          is unforgiving — but after fighting it long enough, you start writing code differently.
-          More intentional. Less sloppy about ownership and lifetimes. That thinking has
-          carried over into everything I've written since.
+          My design approach focused on reducing friction and increasing decision confidence.
+          That meant a few consistent principles across the whole product:
+        </p>
+        <div class="cs-decision">
+          <p class="cs-decision-title">Organize around decisions, not data</p>
+          <p class="cs-body">
+            I avoided building the app as a collection of disconnected data panels. Instead, I
+            designed major sections around user intent — inspect, monitor, discover, manage, review.
+            The data follows the workflow, not the other way around.
+          </p>
+        </div>
+        <div class="cs-decision">
+          <p class="cs-decision-title">Treat responsiveness as a product requirement</p>
+          <p class="cs-body">
+            A lot of the work in this product involves background refreshes, queueing, caching,
+            and integration sync. The UI needed to feel alive and responsive regardless of what
+            was happening underneath — never blocking, never waiting visibly.
+          </p>
+        </div>
+        <div class="cs-decision">
+          <p class="cs-decision-title">Prefer clear action language</p>
+          <p class="cs-body">
+            Wherever possible, I shaped outputs around practical guidance rather than vague status
+            text. That's especially important in places like market posture, listing health, and
+            scanner views — where the value is in the interpretation, not the raw data.
+          </p>
+        </div>
+        <div class="cs-decision">
+          <p class="cs-decision-title">Reduce visual noise as a continuous task</p>
+          <p class="cs-body">
+            As the app grew, one of the ongoing design tasks was removing redundant labels,
+            duplicate notes, overly noisy pills, and low-signal status text. Letting the
+            highest-value information stand out requires actively removing everything that competes with it.
+          </p>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- ARCHITECTURE -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// technical architecture</h2>
+        <p class="cs-body">
+          WarStonks is built as a Tauri desktop application with a split architecture — a
+          React/TypeScript frontend for UI and workflow orchestration, and a Rust backend for
+          everything that needs to be fast, reliable, or persistent.
+        </p>
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-label">Frontend — React + TypeScript</span>
+            <p class="cs-feature-desc">
+              Responsible for presenting live and cached data cleanly, managing modal and review
+              flows, keeping background refreshes visually unobtrusive, and translating
+              complex market information into readable context.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Backend — Rust + Tauri</span>
+            <p class="cs-feature-desc">
+              Handles all external API calls, local database reads and writes, scheduler enforcement,
+              analysis and scanner logic, and log and error handling. Keeps the heavy work
+              completely off the UI thread.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Data Layer — SQLite</span>
+            <p class="cs-feature-desc">
+              Local-first caching, persisted scanner and observatory state, owned inventory and
+              relic cache support. Lets the app load useful local data immediately while live
+              refreshes happen in the background.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- ENGINEERING DECISIONS -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// engineering decisions</h2>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Shared request scheduler for Warframe Market</p>
+          <p class="cs-body">
+            Warframe Market enforces rate limits, and multiple app features can request data concurrently
+            — search, quick view, watchlist refreshes, trades, and scanners all run in parallel.
+            I built a shared priority queue so all requests route through one controlled pathway.
+            Without this, those workflows would compete badly and degrade each other.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Cache-first, refresh-in-background</p>
+          <p class="cs-body">
+            Where cached data is safe to use, the app loads it immediately, then refreshes in
+            the background. This pattern became especially important for relic inventory, planner
+            data, scanner results, and historical market context — data that's expensive to fetch
+            but doesn't need to be live on every open.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Degraded-mode error handling</p>
+          <p class="cs-body">
+            I treated error handling as a product quality concern, not just backend stability.
+            Instead of letting features fail hard when a refresh or upstream source has trouble,
+            I built the app to prefer degraded mode where safe — cached data stays usable while
+            the app communicates that a live refresh didn't succeed. This makes the experience
+            feel stable and professional even when external APIs aren't cooperating.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Multi-source data integration</p>
+          <p class="cs-body">
+            WarStonks combines three external sources: warframe.market for market data and trading
+            operations, warframestat.us for worldstate context, and Alecaframe for inventory-related
+            workflows. One of the core design challenges was deciding where each source is
+            authoritative, where it's advisory, and where local cache should take precedence.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Safety-first trade action flows</p>
+          <p class="cs-body">
+            Trade-related actions have real consequences if handled poorly. I paid particular
+            attention to confirmation flows, order sequencing, queue priority rules for
+            user-triggered actions, and watchlist reconciliation. The goal was to reduce
+            the chance of the app doing the wrong thing during fast trading sessions.
+          </p>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- CHALLENGES -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// challenges</h2>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Balancing live data with app responsiveness</p>
+          <p class="cs-body">
+            The app depends on live market data, but the UI should never feel like it's waiting.
+            Solving this required combining local caching, background refresh patterns, request
+            scheduling, and coalescing repeated work — all working together so the frontend
+            always has something useful to show.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Turning noisy data into actionable insight</p>
+          <p class="cs-body">
+            The APIs provide a lot of raw information. A major part of the work was designing
+            the interpretation layer — market summaries, scanner scoring, listing health logic,
+            and planning-oriented UI outputs. The value of the app comes from that interpretation,
+            not the retrieval.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Maintaining coherence as the app grew</p>
+          <p class="cs-body">
+            As WarStonks expanded from market analysis into scanners, planning, trades, and
+            portfolio features, there was a real risk of it becoming a loosely connected collection
+            of tools. I handled this by continually refining the product around one larger loop:
+            discover, act, manage, review — and cutting anything that didn't serve that loop clearly.
+          </p>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- REFLECTION -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// reflection</h2>
+        <p class="cs-body">
+          WarStonks is the kind of project I enjoy most — taking a messy, high-friction workflow
+          and turning it into a tool that feels cohesive, useful, and operationally sharp. By the
+          official 3.0.4 release it covered the full loop: market inspection, opportunity discovery,
+          farming guidance, set planning, live order management, and portfolio review.
         </p>
         <p class="cs-body">
-          Building a real-time data app also forced me to think carefully about performance —
-          when to cache, when to fetch fresh, how to keep the UI responsive while background
-          processes are running. Problems that don't show up in tutorial projects.
+          The most important lesson from the project was that technical correctness alone is not
+          enough. For a product like this, the real value comes from how well the system translates
+          raw data into confidence, speed, and clarity for the user. That's a product problem as
+          much as an engineering one — and it's the part I found most interesting to solve.
+        </p>
+        <p class="cs-body">
+          It also taught me Rust properly. The borrow checker is unforgiving, but after fighting it
+          long enough, you start writing code differently — more intentional, more aware of ownership.
+          That thinking has carried over into everything I've built since.
         </p>
       </div>
 
@@ -175,7 +417,7 @@
 
     <footer>
       <span>py<span class="accent">.</span> · built with intention</span>
-      <span>2026</span>
+      <span id="footerYear"></span>
     </footer>
 
     <script type="module" src="/src/casestudy.js"></script>
