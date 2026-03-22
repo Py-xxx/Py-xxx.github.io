@@ -115,24 +115,21 @@ runHeroSequence()
 // ============================================
 // SCROLL REVEALS
 // ============================================
-gsap.utils.toArray('.reveal').forEach(el => {
-  gsap.from(el, {
-    opacity: 0,
-    y: 18,
-    duration: 0.6,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: el,
-      start: 'top 88%',
-      once: true,
-    }
+// IntersectionObserver is more reliable than ScrollTrigger for reveals —
+// it always reports current intersection state, fires immediately for
+// elements already in view, and isn't affected by font-loading layout shifts.
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return
+    gsap.to(entry.target, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
+    revealObserver.unobserve(entry.target)
   })
-})
+}, { rootMargin: '0px 0px -6% 0px' })
 
-// Fonts shifting the layout after ScrollTrigger calculates positions
-// is the most common cause of triggers never firing. Refresh after
-// fonts are ready to recalculate with the real layout.
-document.fonts.ready.then(() => ScrollTrigger.refresh())
+gsap.utils.toArray('.reveal').forEach(el => {
+  gsap.set(el, { opacity: 0, y: 18 })
+  revealObserver.observe(el)
+})
 
 // Stagger children on scroll
 const staggerTargets = [
