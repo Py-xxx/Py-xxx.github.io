@@ -704,7 +704,8 @@ body::before {
 
 /* ── Mobile ────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .cursor-glow { display: none; }
+  .cursor-glow  { display: none; }
+  .corner-glow  { display: none; }
 
   .icon-grid {
     flex-direction: row;
@@ -722,4 +723,26 @@ body::before {
   }
 
   .system-tray .tray-icon:first-child { display: none; }
+
+  /* Move status widget to bottom-left so it clears the icon grid */
+  .status-widget {
+    top: auto;
+    right: auto;
+    bottom: calc(var(--taskbar-h) + 20px);
+    left: 20px;
+  }
+
+  /* Hide the meta line — too cramped on small screens */
+  .status-meta { display: none; }
+
+  /* Pinned note stays bottom-right, just tighten it up */
+  .pinned-note {
+    bottom: calc(var(--taskbar-h) + 20px);
+    right: 16px;
+  }
+
+  .pin-text {
+    font-size: 0.65rem;
+    max-width: 150px;
+  }
 }
