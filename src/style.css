@@ -443,16 +443,27 @@ section {
 .writing-link { color: var(--accent); }
 .writing-link:hover { color: var(--text); }
 
-/* .book-wip badge — shared between bookshelf drawer and book detail pages */
-.book-wip {
+/* book status badges */
+.book-wip,
+.book-published,
+.book-status {
   font-size: 0.62rem;
   padding: 0.15rem 0.45rem;
   border-radius: 999px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.book-wip {
   background: rgba(167,139,250,0.08);
   color: var(--accent);
   border: 1px solid rgba(167,139,250,0.2);
+}
+
+.book-published {
+  background: rgba(40,200,64,0.08);
+  color: #28c840;
+  border: 1px solid rgba(40,200,64,0.2);
 }
 
 /* ============================================
@@ -558,6 +569,21 @@ section {
 
 .book-spine:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .book-spine.active { transform: translateY(-16px); }
+
+/* Before I Vanished — deep midnight slate */
+.book-spine[data-book="before-i-vanished"] {
+  background: linear-gradient(160deg, #1c3050 0%, #0d1d33 55%, #152540 100%);
+  height: 155px;
+}
+
+.book-spine[data-book="before-i-vanished"]::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, rgba(120,160,220,0.3), rgba(120,160,220,0.05));
+  border-radius: 3px 0 0 3px;
+}
 
 /* Hailey's Song — deep lyrical violet */
 .book-spine[data-book="haileys-song"] {

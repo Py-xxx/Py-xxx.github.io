@@ -58,7 +58,7 @@ const statusCmdText  = document.getElementById('statusCmdText')
 const heroStatusLine = document.getElementById('heroStatusLine')
 const scrollHint     = document.getElementById('scrollHint')
 
-const NAME   = 'Py.'
+const NAME   = 'py.'
 const TAG    = 'full-stack engineer.'
 const SUB    = 'who also builds worlds.'
 const STATUS = 'available for work  ·  engineering student  ·  potchefstroom, za'
@@ -196,6 +196,23 @@ function openDrawer(spine) {
   spine.classList.add('active')
   activeSpine = spine
   if (shelfHint) shelfHint.classList.add('hidden')
+
+  // Populate from data attributes
+  const { title, tags, status, cover, blurb, link } = spine.dataset
+  document.getElementById('drawerCover').src = cover
+  document.getElementById('drawerCover').alt = `${title} cover`
+  document.getElementById('drawerTags').textContent = tags
+  document.getElementById('drawerTitle').textContent = title
+  document.getElementById('drawerBlurb').textContent = blurb
+
+  const statusEl = document.getElementById('drawerStatus')
+  const published = status === 'published'
+  statusEl.textContent = published ? 'published' : 'in progress'
+  statusEl.className = `book-status ${published ? 'book-published' : 'book-wip'}`
+
+  document.getElementById('drawerLinks').innerHTML =
+    `<a href="${link}" class="btn-ghost">read more →</a>`
+
   gsap.to(drawer, { height: 'auto', opacity: 1, duration: 0.45, ease: 'power3.out' })
 }
 

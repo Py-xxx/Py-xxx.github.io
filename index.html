@@ -152,14 +152,33 @@
           <div class="bookshelf">
             <div class="shelf-books">
 
+              <!-- Before I Vanished -->
+              <div class="book-spine" data-book="before-i-vanished"
+                data-title="Before I Vanished"
+                data-tags="Poetry · Collection"
+                data-status="published"
+                data-cover="/portfolio/cover-before-i-vanished.png"
+                data-blurb="Poems in the language of silence — of love and loss, of things too heavy to hold, so they were written instead. Each piece a constellation: bright alone, but brighter together. Not a map. Evidence of walking."
+                data-link="/portfolio/writing/before-i-vanished"
+                tabindex="0" role="button" aria-label="Open Before I Vanished">
+                <span class="spine-title">Before I Vanished</span>
+                <span class="spine-author">py</span>
+              </div>
+
               <!-- Hailey's Song -->
-              <div class="book-spine" data-book="haileys-song" tabindex="0" role="button" aria-label="Open Hailey's Song">
+              <div class="book-spine" data-book="haileys-song"
+                data-title="Hailey's Song"
+                data-tags="Fiction · Novel · Lyrical Fantasy"
+                data-status="in-progress"
+                data-cover="/portfolio/cover-haileys-song.png"
+                data-blurb="She has no name. No memory. Only the walking, and the silence that wants her to stop. When a name finally surfaces from somewhere deeper than memory, she speaks it aloud in a place where sound is forbidden. The silence hesitates. And somewhere, impossibly, someone is coming."
+                data-link="/portfolio/writing/haileys-song"
+                tabindex="0" role="button" aria-label="Open Hailey's Song">
                 <span class="spine-title">Hailey's Song</span>
                 <span class="spine-author">py</span>
               </div>
 
               <!-- Future slots -->
-              <div class="book-spine book-spine--empty" aria-hidden="true"></div>
               <div class="book-spine book-spine--empty" aria-hidden="true"></div>
               <div class="book-spine book-spine--empty" aria-hidden="true"></div>
 
@@ -169,28 +188,21 @@
 
           <p class="shelf-hint" id="shelfHint">↑ click a spine</p>
 
-          <!-- BOOK DETAIL DRAWER -->
+          <!-- BOOK DETAIL DRAWER (populated dynamically) -->
           <div class="book-drawer" id="bookDrawer">
             <div class="drawer-content">
               <button class="drawer-close" id="drawerClose" aria-label="Close">✕</button>
               <div class="drawer-cover">
-                <img src="/portfolio/cover-haileys-song.png" alt="Hailey's Song cover" />
+                <img id="drawerCover" src="" alt="" />
               </div>
               <div class="drawer-info">
-                <p class="drawer-tags">Fiction · Novel · Lyrical Fantasy</p>
+                <p class="drawer-tags" id="drawerTags"></p>
                 <div class="drawer-title-row">
-                  <h3 class="drawer-title">Hailey's Song</h3>
-                  <span class="book-wip">in progress</span>
+                  <h3 class="drawer-title" id="drawerTitle"></h3>
+                  <span class="book-status" id="drawerStatus"></span>
                 </div>
-                <p class="drawer-blurb">
-                  She has no name. No memory. Only the walking, and the silence that wants her to stop.
-                  When a name finally surfaces from somewhere deeper than memory, she speaks it aloud
-                  in a place where sound is forbidden. The silence hesitates.
-                  And somewhere, impossibly, someone is coming.
-                </p>
-                <div class="drawer-links">
-                  <a href="/portfolio/writing/haileys-song" class="btn-ghost">read more →</a>
-                </div>
+                <p class="drawer-blurb" id="drawerBlurb"></p>
+                <div class="drawer-links" id="drawerLinks"></div>
               </div>
             </div>
           </div>
