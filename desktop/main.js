@@ -109,6 +109,74 @@ function initCursorGlow() {
   })
 }
 
+// ── Rotating phrases ───────────────────────────────────────
+const phrases = [
+  'I build software and worlds.',
+  'Full-stack engineer. Full-shelf author.',
+  'built with intention.',
+  'making things that matter.',
+  'available for the right project.',
+]
+let phraseIndex = 0
+
+function rotatePhrases() {
+  const el = $('pinText')
+  if (!el) return
+  gsap.to(el, {
+    opacity: 0, y: -5, duration: 0.3, ease: 'power2.in',
+    onComplete: () => {
+      phraseIndex = (phraseIndex + 1) % phrases.length
+      el.textContent = phrases[phraseIndex]
+      gsap.fromTo(el, { opacity: 0, y: 5 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' })
+    },
+  })
+}
+setInterval(rotatePhrases, 5000)
+
+// ── Right-click context menu ───────────────────────────────
+const contextMenu = $('contextMenu')
+
+function openContextMenu(x, y) {
+  const menuW = 200
+  const menuH = 155
+  const left  = x + menuW > window.innerWidth  ? x - menuW : x
+  const top   = y + menuH > window.innerHeight ? y - menuH : y
+  gsap.set(contextMenu, { left, top, scale: 0.95, opacity: 0 })
+  contextMenu.classList.add('open')
+  gsap.to(contextMenu, { scale: 1, opacity: 1, duration: 0.15, ease: 'power2.out' })
+}
+
+function closeContextMenu() {
+  gsap.to(contextMenu, {
+    opacity: 0, scale: 0.95, duration: 0.12, ease: 'power2.in',
+    onComplete: () => contextMenu.classList.remove('open'),
+  })
+}
+
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest('.icon') || e.target.closest('.os-window') || e.target.closest('.taskbar')) return
+  e.preventDefault()
+  openContextMenu(e.clientX, e.clientY)
+})
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.context-menu')) closeContextMenu()
+})
+
+document.querySelectorAll('.ctx-item').forEach(item => {
+  item.addEventListener('click', () => {
+    closeContextMenu()
+    setTimeout(() => {
+      switch (item.dataset.ctx) {
+        case 'portfolio': launchPortfolio(document.querySelector('.icon[data-action="portfolio"]')); break
+        case 'github':    window.open('https://github.com/Py-xxx', '_blank', 'noopener'); break
+        case 'contact':   toggleWindow('contactWindow'); break
+        case 'refresh':   window.location.reload(); break
+      }
+    }, 150)
+  })
+})
+
 // ── Window management ──────────────────────────────────────
 let zTop = 200
 let cascadeOffset = 0
@@ -213,7 +281,7 @@ function launchPortfolio(iconEl) {
   gsap.set(term, { left: cx, top: cy, xPercent: -50, yPercent: -50, width: 2, height: 2, opacity: 0 })
 
   gsap.timeline({ onComplete: () => { window.location.href = '/portfolio' } })
-    .to('.icon-grid, .taskbar', { opacity: 0, duration: 0.35, ease: 'power2.in' }, 0)
+    .to('.icon-grid, .taskbar, .status-widget, .pinned-note, .corner-glow', { opacity: 0, duration: 0.35, ease: 'power2.in' }, 0)
     .to(term, { opacity: 1, width: targetW, height: targetH, left: '50%', top: '50%', duration: 0.55, ease: 'power3.out' }, 0.05)
     .to('.tt-cursor', { opacity: 0, duration: 0.13, repeat: 5, yoyo: true, ease: 'none' }, 0.55)
     .to(overlay, { opacity: 1, duration: 0.35, ease: 'power2.in' }, 0.85)
@@ -309,7 +377,7 @@ window.addEventListener('pageshow', e => {
   if (e.persisted) {
     document.querySelector('.transition-terminal')?.remove()
     gsap.set('body', { opacity: 1 })
-    gsap.set('.icon-grid, .taskbar', { opacity: 1 })
+    gsap.set('.icon-grid, .taskbar, .status-widget, .pinned-note, .corner-glow', { opacity: 1 })
   }
 })
 
@@ -323,6 +391,14 @@ function runEntrance() {
   gsap.from('.taskbar', {
     opacity: 0, y: 8,
     duration: 0.5, ease: 'power2.out',
+  })
+  gsap.from('.status-widget', {
+    opacity: 0, x: 14,
+    duration: 0.6, ease: 'power3.out', delay: 0.25,
+  })
+  gsap.from('.pinned-note', {
+    opacity: 0, y: 10,
+    duration: 0.6, ease: 'power3.out', delay: 0.4,
   })
 }
 
