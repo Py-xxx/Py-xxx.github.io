@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!-- built with intention -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — py.</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0a0f'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='%23a78bfa' font-family='monospace' font-size='14' font-weight='bold'>py</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --bg:       #08080d;
+        --accent:   #a78bfa;
+        --text:     #e8e8f0;
+        --text-dim: #5a5a72;
+        --text-mid: #9090a8;
+        --border:   rgba(167, 139, 250, 0.13);
+        --mono:     'JetBrains Mono', monospace;
+      }
+
+      html, body {
+        height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--mono);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* noise */
+      body::after {
+        content: '';
+        position: fixed; inset: 0;
+        pointer-events: none;
+        z-index: 100;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        background-size: 300px 300px;
+      }
+
+      /* vignette */
+      body::before {
+        content: '';
+        position: fixed; inset: 0;
+        background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.5) 100%);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .terminal {
+        background: #111118;
+        border: 1px solid #2a2a38;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 560px;
+        box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(167,139,250,0.05);
+        overflow: hidden;
+      }
+
+      .terminal-bar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #2a2a38;
+      }
+
+      .dot {
+        width: 12px; height: 12px;
+        border-radius: 50%;
+      }
+      .dot.red    { background: #ff5f57; }
+      .dot.yellow { background: #febc2e; }
+      .dot.green  { background: #28c840; }
+
+      .terminal-title {
+        margin-left: 0.4rem;
+        font-size: 0.72rem;
+        color: var(--text-dim);
+        letter-spacing: 0.05em;
+      }
+
+      .terminal-body {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .t-line {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+      }
+
+      .prompt { color: var(--accent); }
+      .cmd    { color: var(--text-dim); }
+
+      .error-code {
+        font-size: 3.5rem;
+        font-weight: 600;
+        color: var(--accent);
+        letter-spacing: -0.02em;
+        line-height: 1;
+        margin: 0.5rem 0 0.25rem 0;
+      }
+
+      .error-msg {
+        font-size: 0.82rem;
+        color: var(--text-mid);
+        line-height: 1.6;
+      }
+
+      .error-msg span { color: var(--text-dim); }
+
+      .actions {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        transition: all 0.15s ease;
+        cursor: pointer;
+        border: none;
+      }
+
+      .btn-primary {
+        background: rgba(167,139,250,0.12);
+        color: var(--accent);
+        border: 1px solid rgba(167,139,250,0.2);
+      }
+      .btn-primary:hover {
+        background: rgba(167,139,250,0.2);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--text-dim);
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      .btn-ghost:hover {
+        color: var(--text);
+        border-color: rgba(255,255,255,0.16);
+      }
+
+      .cursor {
+        color: var(--accent);
+        animation: blink 1s step-end infinite;
+      }
+
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0; }
+      }
+
+      @media (max-width: 480px) {
+        .error-code { font-size: 2.5rem; }
+        .terminal-body { padding: 1.25rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">py@portfolio ~ </span>
+        </div>
+        <div class="terminal-body">
+          <div class="t-line">
+            <span class="prompt">❯</span>
+            <span class="cmd" id="cmdText"></span>
+          </div>
+          <p class="error-code">404</p>
+          <p class="error-msg">
+            this path doesn't exist.<br/>
+            <span>it may have moved, or never existed at all.</span>
+          </p>
+          <div class="actions">
+            <a href="/" class="btn btn-primary">← back to desktop</a>
+            <a href="/portfolio" class="btn btn-ghost">portfolio</a>
+          </div>
+          <div class="t-line" style="margin-top: 0.5rem">
+            <span class="prompt">❯</span>
+            <span class="cursor">█</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Type the failed path into the command line
+      const el   = document.getElementById('cmdText')
+      const path = window.location.pathname || '/???'
+      const text = ` cd ${path}`
+      let i = 0
+      const t = setInterval(() => {
+        el.textContent += text[i++]
+        if (i >= text.length) clearInterval(t)
+      }, 40)
+    </script>
+  </body>
+</html>

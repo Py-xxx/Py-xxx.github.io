@@ -452,6 +452,18 @@ body::before {
 }
 .link-arrow { color: var(--accent-dim); font-size: 0.68rem; flex-shrink: 0; }
 
+.link-row--disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.link-row--disabled .link-label::after {
+  content: ' — coming soon';
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
 /* ── Taskbar ───────────────────────────────────────────── */
 .taskbar {
   height: var(--taskbar-h);
