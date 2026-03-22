@@ -124,9 +124,15 @@ gsap.utils.toArray('.reveal').forEach(el => {
     scrollTrigger: {
       trigger: el,
       start: 'top 88%',
+      once: true,
     }
   })
 })
+
+// Fonts shifting the layout after ScrollTrigger calculates positions
+// is the most common cause of triggers never firing. Refresh after
+// fonts are ready to recalculate with the real layout.
+document.fonts.ready.then(() => ScrollTrigger.refresh())
 
 // Stagger children on scroll
 const staggerTargets = [

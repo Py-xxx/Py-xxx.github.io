@@ -382,22 +382,25 @@ window.addEventListener('pageshow', e => {
 })
 
 // ── Desktop entrance animation ─────────────────────────────
+// Elements are pre-set to their start positions in boot() before
+// the desktop becomes visible — so gsap.to() animates forward
+// with no visible jump.
 function runEntrance() {
-  gsap.from(iconEls, {
-    opacity: 0, y: 14,
+  gsap.to(iconEls, {
+    opacity: 1, y: 0,
     duration: 0.5, stagger: 0.07,
     ease: 'power3.out', delay: 0.05,
   })
-  gsap.from('.taskbar', {
-    opacity: 0, y: 8,
+  gsap.to('.taskbar', {
+    opacity: 1, y: 0,
     duration: 0.5, ease: 'power2.out',
   })
-  gsap.from('.status-widget', {
-    opacity: 0, x: 14,
+  gsap.to('.status-widget', {
+    opacity: 1, x: 0,
     duration: 0.6, ease: 'power3.out', delay: 0.25,
   })
-  gsap.from('.pinned-note', {
-    opacity: 0, y: 10,
+  gsap.to('.pinned-note', {
+    opacity: 1, y: 0,
     duration: 0.6, ease: 'power3.out', delay: 0.4,
   })
 }
@@ -445,6 +448,12 @@ async function boot() {
     opacity: 0, duration: 0.4, ease: 'power2.in',
     onComplete: () => {
       screen.remove()
+      // Pre-set all entrance elements to their starting positions
+      // while the desktop is still invisible — eliminates the jump
+      gsap.set(iconEls,        { opacity: 0, y: 14 })
+      gsap.set('.taskbar',     { opacity: 0, y: 8  })
+      gsap.set('.status-widget', { opacity: 0, x: 14 })
+      gsap.set('.pinned-note', { opacity: 0, y: 10 })
       gsap.to('#desktop', {
         opacity: 1, duration: 0.3,
         onComplete: runEntrance,
