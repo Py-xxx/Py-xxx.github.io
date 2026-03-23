@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<!-- built with intention -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ExoNav — Case Study</title>
+    <meta name="description" content="Training autonomous rover navigation policies in physically accurate sim environments — built for real hardware transfer." />
+    <meta property="og:title" content="ExoNav — Case Study by py" />
+    <meta property="og:description" content="RL-driven planetary rover navigation. Isaac Sim · Isaac Lab · PyTorch · Tauri · ROS2. Training policies that transfer 1:1 to real hardware." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/casestudy.css" />
+  </head>
+  <body>
+
+    <div id="progressBar"></div>
+
+    <!-- NAV -->
+    <nav id="nav">
+      <a href="/" class="nav-name">py<span class="accent">.</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/portfolio/#projects" style="color: var(--accent)">projects</a></li>
+        <li><a href="/portfolio/#writing">writing</a></li>
+        <li><a href="/portfolio/about">about</a></li>
+        <li><a href="/portfolio/#contact" class="nav-cta">hire me</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <main class="casestudy-page">
+
+      <!-- HEADER -->
+      <div class="cs-header">
+        <a href="/portfolio/#projects" class="cs-back">← back to projects</a>
+        <p class="terminal-line cs-terminal-line"><span class="prompt">❯</span><span class="command"> cat exonav.md</span></p>
+        <div class="cs-meta">
+          <span class="project-tag">Python · PyTorch · Isaac Sim · Tauri · ROS2</span>
+          <span class="project-status status-wip">in development</span>
+        </div>
+        <h1 class="cs-title">ExoNav — Traverse</h1>
+        <p class="cs-subtitle">
+          A simulation-to-real pipeline for autonomous planetary rover navigation —
+          training RL policies in physically accurate environments and deploying them
+          directly onto real hardware. No shortcuts on the physics, no gap between sim and real.
+        </p>
+      </div>
+
+      <!-- SNAPSHOT -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// project snapshot</h2>
+        <div class="cs-snapshot">
+          <div class="cs-snapshot-item">
+            <span class="cs-snapshot-label">Role</span>
+            <span class="cs-snapshot-value">System design · RL engineering · Frontend · Backend</span>
+          </div>
+          <div class="cs-snapshot-item">
+            <span class="cs-snapshot-label">Sim Stack</span>
+            <span class="cs-snapshot-value">NVIDIA Isaac Sim · Isaac Lab · PhysX 5</span>
+          </div>
+          <div class="cs-snapshot-item">
+            <span class="cs-snapshot-label">ML Stack</span>
+            <span class="cs-snapshot-value">PyTorch · SAC · PPO · PointNet++ · SB3</span>
+          </div>
+          <div class="cs-snapshot-item">
+            <span class="cs-snapshot-label">App Stack</span>
+            <span class="cs-snapshot-value">Tauri 2 · React · Three.js · FastAPI · ROS2</span>
+          </div>
+          <div class="cs-snapshot-item">
+            <span class="cs-snapshot-label">Target Hardware</span>
+            <span class="cs-snapshot-value">NVIDIA Jetson AGX Orin · ONNX → TensorRT</span>
+          </div>
+          <div class="cs-snapshot-item">
+            <span class="cs-snapshot-label">Status</span>
+            <span class="cs-snapshot-value">Active development — simulation phase</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- THE PROBLEM -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// the problem</h2>
+        <p class="cs-body">
+          Autonomous navigation for off-road rovers — planetary or otherwise — is a hard problem
+          with a dangerous failure mode: a policy that looks great in simulation can fail badly
+          on real hardware the first time it encounters real terrain. Most sim-to-real pipelines
+          accept that gap as a fact of life and compensate for it after deployment.
+        </p>
+        <p class="cs-body">
+          The gap has three specific causes:
+        </p>
+        <div class="cs-problems">
+          <div class="cs-problem">
+            <span class="cs-problem-num">01</span>
+            <div class="cs-problem-content">
+              <span class="cs-problem-title">Simplified physics</span>
+              <p class="cs-problem-desc">Most simulators abstract away contact forces, suspension dynamics, and soil interaction. Policies trained in simplified physics don't generalise — the real world doesn't abstract anything.</p>
+            </div>
+          </div>
+          <div class="cs-problem">
+            <span class="cs-problem-num">02</span>
+            <div class="cs-problem-content">
+              <span class="cs-problem-title">Sensor fidelity mismatch</span>
+              <p class="cs-problem-desc">Sim sensors tend to be clean and noise-free. Real LiDAR, depth cameras, and IMUs aren't. A policy trained on perfect sensor data can't handle real-world sensor noise without explicit simulation of it.</p>
+            </div>
+          </div>
+          <div class="cs-problem">
+            <span class="cs-problem-num">03</span>
+            <div class="cs-problem-content">
+              <span class="cs-problem-title">No path from training to deployment</span>
+              <p class="cs-problem-desc">Even when simulation quality is high, there's often no clean export path from trained policy to real hardware runtime. The system and the deployment target are designed separately and bolted together at the end.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THE GOAL -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// the goal</h2>
+        <p class="cs-body">
+          Build a system where the trained policy and the real hardware speak the same language
+          from the start — physically accurate simulation, real sensor noise models, and a
+          structured export path from training checkpoint to Jetson deployment. The loop looks like this:
+        </p>
+        <div class="cs-loop">
+          <div class="cs-loop-step"><span>simulate</span></div>
+          <div class="cs-loop-step"><span>train</span></div>
+          <div class="cs-loop-step"><span>validate</span></div>
+          <div class="cs-loop-step"><span>export</span></div>
+          <div class="cs-loop-step"><span>deploy</span></div>
+        </div>
+        <p class="cs-body">
+          The benchmark for success isn't a clean training curve — it's a policy that runs
+          identically in simulation and on real rover hardware, with no post-deployment tuning.
+        </p>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- WHAT I BUILT -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// what I'm building</h2>
+        <p class="cs-body">
+          ExoNav is structured as two systems that need to be independently excellent and
+          tightly integrated: a simulation and training backend, and a mission control frontend.
+        </p>
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-label">Physics Simulation — NVIDIA Isaac Sim</span>
+            <p class="cs-feature-desc">
+              The simulation runs on Isaac Sim with PhysX 5 articulation physics and RTX
+              ray-traced sensor simulation. Rover suspensions are modelled accurately — the
+              rocker-bogie geometry, pivot points, and passive differential are all physically
+              correct. The same physics engine that JPL and ESA use for rover R&D.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Terrain Environments</span>
+            <p class="cs-feature-desc">
+              Terrain stages are generated from real DEM (Digital Elevation Model) data — Mars
+              surface topology sourced from HiRISE and MOLA. Procedurally placed rocks are
+              rigid bodies. Soil is modelled using Bekker's terramechanics SCM model for
+              physically accurate regolith interaction.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Multi-Modal Policy Architecture</span>
+            <p class="cs-feature-desc">
+              The navigation policy processes three sensor streams simultaneously: a 360° LiDAR
+              point cloud through a PointNet++ encoder, a 128×128 depth camera frame through
+              a Conv2D encoder, and an IMU/pose/goal state vector through an MLP. The three
+              representations are fused through a shared network into a continuous velocity command.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">RL Training — SAC + Curriculum</span>
+            <p class="cs-feature-desc">
+              Training uses a two-phase curriculum: PPO bootstraps a stable base policy on flat
+              terrain first, then SAC takes over for continuous control on increasingly complex
+              environments. Isaac Lab manages parallel GPU environments (64–256 concurrent)
+              and domain randomisation. TensorBoard streams all reward components live.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Mission Control UI — Tauri + React + Three.js</span>
+            <p class="cs-feature-desc">
+              A Tauri desktop app acts as the command interface. React panels handle scenario
+              selection, training controls, and sensor telemetry. A Three.js overlay reconstructs
+              the simulation state from WebSocket packets at 30 Hz — rover pose, terrain mesh,
+              LiDAR point cloud, and IMU values. The Rust Tauri core manages the Python sim
+              subprocess and all IPC.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Deployment Pipeline — ONNX → TensorRT → ROS2</span>
+            <p class="cs-feature-desc">
+              Trained policies export to ONNX, then optimise to TensorRT for Jetson AGX Orin
+              (INT8 or FP16). The ROS2 inference node subscribes to real sensor topics using
+              the same message types as the simulator — so the node that runs in sim is the
+              same one that runs on hardware.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- ARCHITECTURE -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// technical architecture</h2>
+        <p class="cs-body">
+          The system is split across three layers that each have a clear ownership boundary.
+          No layer does the job of another.
+        </p>
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-label">Simulation Backend — Python + Isaac Sim</span>
+            <p class="cs-feature-desc">
+              Isaac Sim owns the Python interpreter. A FastAPI server runs in-process on port
+              8765 and manages sim lifecycle, training sessions, scenario configuration, and
+              WebSocket streaming. The RL environment subclasses Isaac Lab's
+              <code>ManagerBasedRLEnv</code> — curriculum, domain randomisation, reward
+              logging, and checkpointing are all handled there.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Frontend — Tauri + React + Three.js</span>
+            <p class="cs-feature-desc">
+              The Tauri app does not run physics — it is a control and observation panel.
+              The Rust core manages the Python subprocess, IPC commands, and file operations.
+              React + TypeScript handles UI state via Zustand. Three.js renders a live 3D
+              secondary view from WebSocket state packets. Recharts streams training curves
+              in real time.
+            </p>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-label">Hardware Runtime — ROS2 + Jetson</span>
+            <p class="cs-feature-desc">
+              A ROS2 Humble node wraps the exported policy. It subscribes to the same
+              <code>sensor_msgs</code> topics the simulator publishes, runs TensorRT inference,
+              and publishes velocity commands to the motor controller. The node is designed
+              to be topic-identical in sim and on real hardware — no conditional paths,
+              no hardware-specific branches.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- ENGINEERING DECISIONS -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// engineering decisions</h2>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">PointNet++ for LiDAR encoding</p>
+          <p class="cs-body">
+            LiDAR returns a variable-density point cloud — not a fixed-size tensor that a standard
+            CNN can consume directly. PointNet++ handles permutation invariance and partial scans
+            naturally, and its hierarchical local feature extraction is well-suited to terrain
+            classification. The encoder is pre-trained on Mars HiRISE terrain data before RL
+            fine-tuning, which dramatically reduces the policy's sample requirements.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">SAC for continuous control — not PPO</p>
+          <p class="cs-body">
+            Wheel torque and velocity outputs are continuous, and each physics step is computationally
+            expensive — making sample efficiency critical. SAC's off-policy architecture reuses
+            transitions far more effectively than on-policy PPO, and its automatic entropy tuning
+            prevents premature convergence to paths that happen to work on training terrain but
+            don't generalise. PPO is used in stage one of the curriculum because convergence speed
+            on flat terrain matters more than sample efficiency there.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Topic-identical sim and hardware runtime</p>
+          <p class="cs-body">
+            The most important architectural decision in the whole pipeline was making the ROS2
+            inference node topic-identical between simulation and hardware. Isaac Sim publishes
+            to the same <code>sensor_msgs</code> types as the real sensor drivers. This means
+            the policy node never needs to know which environment it's running in — and the
+            sim-to-real gap is closed at the interface level, not patched at deployment.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Isaac Sim as the authoritative physics source</p>
+          <p class="cs-body">
+            The Three.js viewer in the Tauri app renders a reconstruction of the simulation state,
+            not the simulation itself. Isaac Sim's native RTX window remains the authoritative
+            high-fidelity view. This keeps the Tauri app lightweight and avoids the latency and
+            fidelity compromise of running physics in a web renderer — the frontend's job is
+            observation and control, not computation.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Curriculum before complexity</p>
+          <p class="cs-body">
+            Training directly on complex terrain wastes enormous compute on a policy that can't
+            even navigate flat ground yet. The two-phase curriculum — flat terrain PPO bootstrap,
+            then SAC on progressively rougher environments — gives the policy a stable foundation
+            before introducing the hard problems. Domain randomisation (friction, mass, sensor
+            noise) is layered in during SAC training to harden the policy against real-world variance.
+          </p>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- CHALLENGES (active development note) -->
+      <div class="cs-block">
+        <h2 class="cs-block-heading">// active challenges</h2>
+        <p class="cs-body">
+          This project is currently in the simulation and training phase. These are the problems
+          being worked through right now — not retrospective lessons, but open engineering questions.
+        </p>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">VRAM budget during training</p>
+          <p class="cs-body">
+            Isaac Sim's RTX renderer and 64–256 parallel RL environments compete for the same
+            GPU memory. The target training machine (RTX 3060, 12 GB) requires careful budgeting:
+            dropping to the <code>RayTracedLighting</code> renderer and 128×128 sensor resolution
+            during training recovers enough VRAM to run meaningful parallelism without sacrificing
+            physics accuracy.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Rocker-bogie USD articulation</p>
+          <p class="cs-body">
+            Getting the articulation tree right for the 6-wheel rocker-bogie is non-trivial.
+            The passive differential bar that links the two rocker arms needs to be modelled
+            correctly in PhysX — it's a passive kinematic constraint, not an actuated joint,
+            and the solver needs to handle it without introducing instabilities in the suspension.
+          </p>
+        </div>
+
+        <div class="cs-decision">
+          <p class="cs-decision-title">Reward shaping for conservative paths</p>
+          <p class="cs-body">
+            The reward function needs to balance goal progress against terrain safety —
+            a rover that charges straight at a target and tips over is technically making
+            progress until it isn't. Shaping the reward to prefer stable, energy-efficient
+            paths without making it so conservative that the rover avoids all non-trivial
+            terrain is an ongoing calibration problem.
+          </p>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <div class="cs-nav">
+        <a href="/portfolio/#projects" class="btn-ghost">← all projects</a>
+      </div>
+
+    </main>
+
+    <footer>
+      <span>py<span class="accent">.</span> · built with intention</span>
+      <span id="footerYear"></span>
+    </footer>
+
+    <script type="module" src="/src/casestudy.js"></script>
+  </body>
+</html>

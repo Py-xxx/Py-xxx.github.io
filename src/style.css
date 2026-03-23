@@ -366,6 +366,12 @@ section {
   border: 1px solid rgba(74, 222, 128, 0.2);
 }
 
+.status-wip {
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
 .project-title {
   font-size: 1.1rem;
   font-weight: 700;

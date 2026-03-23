@@ -13,6 +13,7 @@ export default defineConfig({
         main:          resolve(__dirname, 'index.html'),
         about:         resolve(__dirname, 'about.html'),
         warstonks:     resolve(__dirname, 'projects/warstonks.html'),
+        exonav:        resolve(__dirname, 'projects/exonav.html'),
         haileysSong:      resolve(__dirname, 'writing/haileys-song.html'),
         beforeIVanished:  resolve(__dirname, 'writing/before-i-vanished.html'),
       },
